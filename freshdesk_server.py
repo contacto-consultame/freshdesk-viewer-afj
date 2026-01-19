@@ -65,17 +65,22 @@ def classify_priority(subject, description=""):
     return 'Bajo'
 
 def get_tickets_from_api():
-    """Obtiene tickets de Freshdesk API con análisis completo"""
-    url = f"https://{FRESHDESK_DOMAIN}.freshdesk.com/api/v2/tickets"
+    """Obtiene tickets de Freshdesk API con análisis completo - SOLO AFJ Global"""
+    # Usar el endpoint de búsqueda para filtrar por compañía
+    url = f"https://{FRESHDESK_DOMAIN}.freshdesk.com/api/v2/search/tickets"
     all_tickets = []
 
     try:
-        for page in range(1, 11):  # Obtener hasta 1000 tickets (10 páginas x 100)
+        # Buscar tickets de la compañía AFJ Global
+        # Usar paginación para obtener todos los tickets
+        for page in range(1, 21):  # Aumentar a 20 páginas para obtener más tickets
             params = {
+                'query': f'"company_id:{COMPANY_ID}"',
                 'page': page,
-                'per_page': 100,
-                'include': 'requester,description'
+                'per_page': 30  # API de search limita a 30 por página
             }
+
+            print(f"Obteniendo página {page} de tickets de AFJ Global (Company ID: {COMPANY_ID})...")
 
             response = requests.get(
                 url,
@@ -85,13 +90,18 @@ def get_tickets_from_api():
             )
 
             if response.status_code == 200:
-                tickets = response.json()
+                data = response.json()
+                tickets = data.get('results', [])
                 if not tickets:
+                    print(f"No más tickets en página {page}")
                     break
+                print(f"✓ Obtenidos {len(tickets)} tickets de la página {page}")
                 all_tickets.extend(tickets)
             else:
                 print(f"Error {response.status_code}: {response.text}")
                 break
+
+        print(f"\n✅ Total de tickets de AFJ Global obtenidos: {len(all_tickets)}\n")
 
         # Procesar y enriquecer tickets
         processed = []

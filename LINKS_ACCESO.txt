@@ -1,0 +1,200 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🌐 LINKS DE ACCESO - VISOR FRESHDESK                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+🚀 SERVIDOR CORRIENDO EN PUERTO 8080
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 INTERFAZ WEB PRINCIPAL
+
+🌐 http://localhost:8080
+
+   Muestra la interfaz completa con 3 tabs:
+   • Tab 1: Todos los Tickets (626 tickets)
+   • Tab 2: Análisis de Recurrencia (Top 20)
+   • Tab 3: Análisis por Criticidad (Top 20)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 ENDPOINTS DE LA API
+
+📊 TODOS LOS TICKETS (626 tickets)
+   http://localhost:8080/api/tickets
+
+   Retorna: JSON con todos los tickets de 2025 y 2026
+
+📅 TICKETS DEL 2025 (595 tickets)
+   http://localhost:8080/api/tickets/year/2025
+
+   Retorna: JSON con solo los tickets creados en 2025
+
+📅 TICKETS DEL 2026 (18 tickets)
+   http://localhost:8080/api/tickets/year/2026
+
+   Retorna: JSON con solo los tickets creados en 2026
+
+🔄 ACTUALIZAR DATOS
+   http://localhost:8080/api/refresh
+
+   Fuerza la actualización de tickets desde Freshdesk
+
+🔄 ANÁLISIS DE RECURRENCIA
+   http://localhost:8080/api/recurring
+
+   Retorna: Top 20 tickets más recurrentes
+
+⚠️ ANÁLISIS POR CRITICIDAD
+   http://localhost:8080/api/criticality
+
+   Retorna: Análisis por nivel de prioridad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 ESTADÍSTICAS ACTUALES
+
+Total de Tickets: 626
+  ├─ 2025: 595 tickets (95%)
+  └─ 2026:  18 tickets (3%)
+
+Período: Enero 2025 - Enero 2026
+Cliente: AFJ Global
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 CÓMO USAR LOS LINKS
+
+OPCIÓN 1: Abrir en Navegador
+   • Copia el link
+   • Pégalo en la barra de direcciones
+   • Presiona Enter
+
+OPCIÓN 2: Usar desde Terminal (curl)
+   curl http://localhost:8080/api/tickets/year/2025
+
+OPCIÓN 3: Usar desde JavaScript
+   fetch('http://localhost:8080/api/tickets/year/2025')
+     .then(res => res.json())
+     .then(data => console.log(data));
+
+OPCIÓN 4: Usar desde Python
+   import requests
+   response = requests.get('http://localhost:8080/api/tickets/year/2025')
+   data = response.json()
+   print(f"Tickets 2025: {data['total']}")
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 EJEMPLOS DE USO
+
+VER TODOS LOS TICKETS:
+   🌐 http://localhost:8080
+
+VER SOLO TICKETS DEL 2025:
+   • Opción 1: Usar el filtro en la interfaz web
+   • Opción 2: Ir a http://localhost:8080/api/tickets/year/2025
+   • Opción 3: Modificar la interfaz para mostrar solo 2025
+
+VER SOLO TICKETS DEL 2026:
+   • Opción 1: Usar el filtro en la interfaz web
+   • Opción 2: Ir a http://localhost:8080/api/tickets/year/2026
+
+REFRESCAR DATOS:
+   • Click en botón "🔄 Actualizar" en la interfaz
+   • O ir a http://localhost:8080/api/refresh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 INICIAR/DETENER SERVIDOR
+
+INICIAR:
+   Método 1: Doble click en INICIAR_FRESHDESK.command
+   Método 2: python3 ~/freshdesk_server.py
+   Método 3: cd ~ && python3 freshdesk_server.py
+
+DETENER:
+   Método 1: Ctrl+C en la terminal donde corre
+   Método 2: pkill -f freshdesk_server.py
+
+VERIFICAR SI ESTÁ CORRIENDO:
+   ps aux | grep freshdesk_server.py | grep -v grep
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 ACCESO DESDE OTROS DISPOSITIVOS (MISMA RED)
+
+Si quieres acceder desde otro dispositivo en tu red local:
+
+1. Obtén tu IP local:
+   Mac: ifconfig | grep "inet " | grep -v 127.0.0.1
+   Windows: ipconfig
+
+2. Usa esa IP en lugar de localhost:
+   http://192.168.X.X:8080
+
+   (Reemplaza 192.168.X.X con tu IP real)
+
+⚠️ NOTA: El servidor debe estar configurado para aceptar
+         conexiones externas (por defecto solo localhost)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 FORMATO DE RESPUESTA JSON
+
+EJEMPLO: /api/tickets/year/2025
+
+{
+  "year": 2025,
+  "total": 595,
+  "generated_at": "2026-01-18T18:03:00.123456",
+  "tickets": [
+    {
+      "id": 12345,
+      "subject": "Agenda Revisión Windows",
+      "priority": "Bajo",
+      "created_at": "2025-01-15T14:30:00Z",
+      "status": 5,
+      ...
+    },
+    ...
+  ]
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ LINKS RÁPIDOS
+
+PRINCIPAL:      http://localhost:8080
+TODOS:          http://localhost:8080/api/tickets
+AÑO 2025:       http://localhost:8080/api/tickets/year/2025
+AÑO 2026:       http://localhost:8080/api/tickets/year/2026
+RECURRENCIA:    http://localhost:8080/api/recurring
+CRITICIDAD:     http://localhost:8080/api/criticality
+REFRESCAR:      http://localhost:8080/api/refresh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 NOTAS IMPORTANTES
+
+• El servidor usa puerto 8080 (no el 5000 que usa AirPlay)
+• Los datos se cachean por 5 minutos
+• Para forzar actualización: /api/refresh
+• Los endpoints retornan JSON
+• La interfaz web es responsive
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTADO ACTUAL
+
+Servidor: ✅ CORRIENDO
+Puerto: 8080
+Tickets cargados: 626
+  • 2025: 595 tickets
+  • 2026: 18 tickets
+Cache: 5 minutos
+Cliente: AFJ Global
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fecha: 18 de Enero 2026
+Versión: 4.0 Final con filtro por año

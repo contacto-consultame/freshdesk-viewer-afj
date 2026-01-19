@@ -1,0 +1,71 @@
+================================================================
+RESUMEN DEL REPORTE DE TICKETS - AFJ GLOBAL
+================================================================
+Fecha de generación: 18 de Enero 2026
+Período analizado: 2025 - 2026
+Cliente: AFJ Global (ID: 63000424434)
+
+================================================================
+ESTADÍSTICAS GENERALES
+================================================================
+Total de tickets analizados: 613 tickets
+Período: 1 de Enero 2025 - 18 de Enero 2026
+
+================================================================
+TOP 10 TICKETS MÁS FRECUENTES - PRIORIDAD BAJA
+================================================================
+1. Agenda Revisión Windows (6 ocurrencias)
+2. RV: ALARM: "AJFLearning-CPU-Utilization" in EU (Frankfurt) (6 ocurrencias)
+3. Limpieza de Buzón (4 ocurrencias)
+4. Agenda Revisión de Windows (4 ocurrencias)
+5. Undeliverable: AFJLearning: Estado de la Copia de Seguridad (4 ocurrencias)
+6. Undeliverable: 2025_1_NIVEL BASICO PRL 60HS online: CERTIFICADOS (4 ocurrencias)
+7. Solicitud de revisión de equipo (3 ocurrencias)
+8. Alertas de Antivirus (ESET) (3 ocurrencias)
+9. Problemas con el Outlook (3 ocurrencias)
+10. RE: Acceso FUNDAE (2 ocurrencias)
+
+================================================================
+OBSERVACIONES
+================================================================
+- La mayoría de los tickets son de prioridad BAJA
+- Los problemas más frecuentes están relacionados con:
+  * Revisiones programadas de Windows (10 ocurrencias total)
+  * Alertas de monitoreo de infraestructura (CPU, backups)
+  * Problemas de correo (mensajes no entregables)
+  * Mantenimiento de buzones
+  * Problemas con Outlook
+  * Alertas de antivirus ESET
+
+================================================================
+ARCHIVO EXCEL GENERADO
+================================================================
+Archivo: reporte_freshdesk_AFJ_Global.xlsx
+Ubicación: /Users/ladydayanaradarobertis/
+
+El archivo Excel contiene las siguientes hojas:
+- "Todos los Tickets": Lista completa de todos los tickets con detalles
+- "Resumen por Prioridad": Estadísticas agrupadas por nivel de prioridad
+- "Top 10 - Bajo": Top 10 de tickets más frecuentes de prioridad baja
+- "Top 10 - Medio": Top 10 de tickets más frecuentes de prioridad media (si existen)
+- "Top 10 - Alto": Top 10 de tickets más frecuentes de prioridad alta (si existen)
+- "Top 10 - Urgente": Top 10 de tickets más frecuentes de prioridad urgente (si existen)
+
+================================================================
+SCRIPTS GENERADOS
+================================================================
+1. freshdesk_report_optimized.py - Script principal para generar reportes
+2. test_freshdesk_api.py - Script de prueba de conexión API
+
+Para volver a ejecutar el reporte en el futuro:
+    python3 freshdesk_report_optimized.py
+
+================================================================
+CONFIGURACIÓN UTILIZADA
+================================================================
+Dominio Freshdesk: consultame.freshdesk.com
+API Key: 6egUChwBAUA2633n18DC
+Cliente: AFJ Global
+Compañía ID: 63000424434
+
+================================================================

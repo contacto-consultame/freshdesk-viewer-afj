@@ -1,0 +1,312 @@
+╔══════════════════════════════════════════════════════════════╗
+║  📅 VERSIÓN 5.2 - FILTRO POR AÑO EN ANÁLISIS                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ ACTUALIZACIÓN COMPLETADA CON ÉXITO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 NUEVA FUNCIONALIDAD
+
+Ahora los análisis de RECURRENCIA y CRITICIDAD respetan el filtro
+de año seleccionado en el dropdown principal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CAMBIOS IMPLEMENTADOS
+
+✅ 1. FILTRO DE AÑO EN ANÁLISIS DE RECURRENCIA
+   • El tab "🔄 Análisis de Recurrencia" ahora filtra por año
+   • El título muestra el año: "Análisis de Recurrencia (2025)"
+   • Las estadísticas se calculan solo con tickets del año seleccionado
+
+✅ 2. FILTRO DE AÑO EN ANÁLISIS DE CRITICIDAD
+   • El tab "⚠️ Análisis por Criticidad" ahora filtra por año
+   • El título muestra el año: "Análisis por Criticidad (2025)"
+   • La clasificación se hace solo con tickets del año seleccionado
+
+✅ 3. ACTUALIZACIÓN AUTOMÁTICA
+   • Al cambiar el año en el dropdown, los análisis se recargan
+   • El cache se invalida para forzar recarga con nuevo filtro
+   • Los títulos se actualizan dinámicamente
+
+✅ 4. NUEVOS ENDPOINTS API
+   • /api/recurring?year=2025
+   • /api/recurring?year=2026
+   • /api/criticality-custom?year=2025
+   • /api/criticality-custom?year=2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 COMPARACIÓN DE ESTADÍSTICAS POR AÑO
+
+🔹 ANÁLISIS DE RECURRENCIA:
+
+AÑO 2025 (595 tickets):
+  • Total tickets: 595
+  • Tickets recurrentes: 118
+  • Asuntos únicos: 518
+  • % Recurrencia: 19.8%
+
+AÑO 2026 (18 tickets):
+  • Total tickets: 18
+  • Tickets recurrentes: 0
+  • Asuntos únicos: 18
+  • % Recurrencia: 0%
+  • Nota: No hay recurrencia porque son muy pocos tickets
+
+
+🔹 ANÁLISIS DE CRITICIDAD:
+
+AÑO 2025 (595 tickets):
+  📕 ALTA: 26 tickets (4.4%)
+  📙 MEDIA: 46 tickets (7.7%)
+  📗 BAJA: 523 tickets (87.9%)
+
+AÑO 2026 (18 tickets):
+  📕 ALTA: 0 tickets (0%)
+  📙 MEDIA: 6 tickets (33.3%)
+  📗 BAJA: 12 tickets (66.7%)
+  • Nota: Más % de media porque son pocos tickets
+
+
+TODOS LOS AÑOS (626 tickets):
+  📕 ALTA: 26 tickets (4.2%)
+  📙 MEDIA: 54 tickets (8.6%)
+  📗 BAJA: 546 tickets (87.2%)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 CÓMO USAR LA NUEVA FUNCIONALIDAD
+
+1️⃣ ABRIR EL VISOR:
+   http://localhost:8080
+
+2️⃣ SELECCIONAR UN AÑO:
+   • En la parte superior, usa el dropdown "📅 Todos los años"
+   • Opciones disponibles:
+     - 📅 Todos los años (626 tickets)
+     - 📅 Solo 2025 (595 tickets)
+     - 📅 Solo 2026 (18 tickets)
+
+3️⃣ IR A UN TAB DE ANÁLISIS:
+   • Click en "🔄 Análisis de Recurrencia"
+     → Verás: "Análisis de Recurrencia (2025)"
+     → Estadísticas solo del año seleccionado
+
+   • O click en "⚠️ Análisis por Criticidad"
+     → Verás: "Análisis por Criticidad (2025)"
+     → Clasificación solo del año seleccionado
+
+4️⃣ CAMBIAR DE AÑO:
+   • Cambia el dropdown a otro año
+   • Los análisis se recargan automáticamente
+   • Los títulos se actualizan con el nuevo año
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 EXPERIENCIA VISUAL
+
+Antes (v5.1):
+❌ Título fijo: "Análisis de Recurrencia"
+❌ Análisis siempre mostraba todos los años
+❌ No se sabía qué año se estaba analizando
+
+Ahora (v5.2):
+✅ Título dinámico: "Análisis de Recurrencia (2025)"
+✅ Análisis respeta el filtro de año seleccionado
+✅ Título vacío cuando es "Todos los años"
+✅ Actualización automática al cambiar año
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 EJEMPLOS DE USO DE API
+
+RECURRENCIA TODOS LOS AÑOS:
+curl http://localhost:8080/api/recurring
+
+Respuesta:
+{
+  "total_tickets": 626,
+  "recurring_tickets": 118,
+  "unique_subjects": 543,
+  "year_filter": null
+}
+
+
+RECURRENCIA SOLO 2025:
+curl "http://localhost:8080/api/recurring?year=2025"
+
+Respuesta:
+{
+  "total_tickets": 595,
+  "recurring_tickets": 118,
+  "unique_subjects": 518,
+  "year_filter": "2025"
+}
+
+
+CRITICIDAD SOLO 2026:
+curl "http://localhost:8080/api/criticality-custom?year=2026"
+
+Respuesta:
+{
+  "total_tickets": 18,
+  "year_filter": "2026",
+  "analysis": {
+    "Alto": {"count": 0, "percentage": 0},
+    "Medio": {"count": 6, "percentage": 33.3},
+    "Bajo": {"count": 12, "percentage": 66.7}
+  }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 CASOS DE USO PRÁCTICOS
+
+📌 CASO 1: Análisis solo de 2025
+Selecciona "📅 Solo 2025" y ve a:
+• Tab Recurrencia → 118 tickets recurrentes de 595
+• Tab Criticidad → 26 alta, 46 media, 523 baja
+
+📌 CASO 2: Análisis solo de 2026
+Selecciona "📅 Solo 2026" y ve a:
+• Tab Recurrencia → 0 tickets recurrentes (todos únicos)
+• Tab Criticidad → 0 alta, 6 media, 12 baja
+
+📌 CASO 3: Comparar años
+1. Selecciona 2025 → ve Tab Criticidad → anota estadísticas
+2. Selecciona 2026 → ve Tab Criticidad → anota estadísticas
+3. Compara: 2025 tiene 26 tickets críticos, 2026 tiene 0
+
+📌 CASO 4: Análisis global
+Selecciona "📅 Todos los años" para ver:
+• Panorama completo de 626 tickets
+• Tendencias generales sin filtros
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 PRUEBAS REALIZADAS
+
+✅ Endpoint /api/recurring sin parámetro → 626 tickets
+✅ Endpoint /api/recurring?year=2025 → 595 tickets
+✅ Endpoint /api/recurring?year=2026 → 18 tickets
+✅ Endpoint /api/criticality-custom?year=2025 → 595 tickets
+✅ Endpoint /api/criticality-custom?year=2026 → 18 tickets
+✅ Títulos se actualizan dinámicamente en interfaz
+✅ Cache se invalida correctamente al cambiar año
+✅ Análisis se recarga al cambiar de año
+✅ Análisis se recarga al cambiar de tab
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💾 BACKUP ACTUALIZADO
+
+✅ Commit realizado: de24eca
+✅ Ubicación: ~/freshdesk-viewer-backup/
+✅ Versión: 5.2
+
+Historial de commits:
+• v5.2 (HOY) → Filtrado por año en análisis
+• v5.1 (HOY) → Clasificación mejorada expandida
+• v5.0 (HOY) → Selector de año + clasificación por contenido
+• v4.5 → Sistema funcionando correctamente
+
+Para ver detalles:
+   cd ~/freshdesk-viewer-backup
+   git log --oneline
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 DETALLES TÉCNICOS
+
+CAMBIOS EN freshdesk_server.py:
+1. Importado 'request' de Flask
+2. Agregado parámetro ?year en /api/recurring
+3. Agregado parámetro ?year en /api/criticality-custom
+4. Filtrado por año en ambos endpoints
+5. Agregado 'year_filter' en respuesta JSON
+
+CAMBIOS EN visor_freshdesk_final.html:
+1. loadRecurringAnalysis() ahora pasa parámetro ?year
+2. loadCriticalityAnalysis() ahora pasa parámetro ?year
+3. displayRecurringAnalysis() actualiza título con año
+4. displayCriticalitySummary() actualiza título con año
+5. Selector de año invalida cache y recarga análisis
+6. switchTab() siempre recarga análisis (no usa cache)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 IMPACTO EN LA EXPERIENCIA
+
+ANTES (v5.1):
+❌ Usuario selecciona "2025" en dropdown
+❌ Ve tab "Todos los Tickets" filtrado por 2025 ✓
+❌ Va a "Análisis de Recurrencia" → ve todos los años ✗
+❌ Va a "Análisis por Criticidad" → ve todos los años ✗
+❌ Confusión: ¿por qué el filtro no se aplica?
+
+AHORA (v5.2):
+✅ Usuario selecciona "2025" en dropdown
+✅ Ve tab "Todos los Tickets" filtrado por 2025 ✓
+✅ Va a "Análisis de Recurrencia (2025)" → solo 2025 ✓
+✅ Va a "Análisis por Criticidad (2025)" → solo 2025 ✓
+✅ Consistencia: el filtro se aplica a TODO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ INSIGHTS INTERESANTES
+
+📊 Sobre 2025 (595 tickets):
+• 19.8% de tickets son recurrentes
+• 4.4% son críticos (AWS, virus, accesos urgentes)
+• 7.7% son importantes (Outlook, FUNDAE, PST)
+• Top recurrente: "Agenda Revisión Windows" (11x)
+
+📊 Sobre 2026 (18 tickets):
+• 0% de recurrencia (todos únicos, aún no hay patrones)
+• 0% críticos (no hay problemas graves aún)
+• 33.3% importantes (más porcentaje por ser pocos tickets)
+• Tickets más comunes: revisar PC, limpieza, PST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PRÓXIMOS PASOS
+
+El sistema está completamente funcional. Puedes:
+
+1. ✅ Abrir http://localhost:8080
+2. ✅ Seleccionar "📅 Solo 2025"
+3. ✅ Ir al tab "🔄 Análisis de Recurrencia"
+   → Verás: "Análisis de Recurrencia (2025)"
+4. ✅ Ir al tab "⚠️ Análisis por Criticidad"
+   → Verás: "Análisis por Criticidad (2025)"
+5. ✅ Cambiar a "📅 Solo 2026" y ver cómo cambian los análisis
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTADO FINAL
+
+Versión: 5.2 (Filtro por Año en Análisis)
+Estado: ✅ COMPLETADO Y FUNCIONANDO
+Servidor: ✅ Corriendo en http://localhost:8080
+Backup: ✅ Actualizado en Git (commit de24eca)
+Tickets totales: 626
+  • 2025: 595 tickets
+  • 2026: 18 tickets
+
+Funcionalidades:
+✅ Selector de año global
+✅ Filtrado en tab "Todos los Tickets"
+✅ Filtrado en tab "Análisis de Recurrencia"
+✅ Filtrado en tab "Análisis por Criticidad"
+✅ Títulos dinámicos con año
+✅ Actualización automática
+✅ Clasificación por contenido
+✅ 26 tickets críticos detectados
+
+🎉 ¡FILTRADO POR AÑO COMPLETO EN TODOS LOS ANÁLISIS!
+
+Fecha: 18 de Enero 2026
+Cliente: AFJ Global
+Versión: 5.2

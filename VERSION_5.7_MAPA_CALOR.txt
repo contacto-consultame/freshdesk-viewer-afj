@@ -1,0 +1,484 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🔥 VERSIÓN 5.7 - MAPA DE CALOR (HEATMAP)                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ ACTUALIZACIÓN COMPLETADA CON ÉXITO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 NUEVA FUNCIONALIDAD
+
+Se agregó un **Mapa de Calor (Heatmap)** en la sección de "Análisis de
+Tendencias y Carga" que permite identificar visualmente:
+- Los días de la semana con mayor actividad
+- Las horas del día con mayor volumen de tickets
+- Patrones de comportamiento de los usuarios
+- Momentos óptimos para planificación de recursos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CAMBIOS IMPLEMENTADOS
+
+✅ 1. DATOS DE HEATMAP EN /api/trends
+   • Agregado análisis por día de semana (Lunes-Domingo)
+   • Agregado análisis por hora del día (0-23 horas)
+   • Matriz de 7x24 con conteo de tickets
+   • Identificación automática de hora pico
+
+✅ 2. VISUALIZACIÓN DE MAPA DE CALOR
+   • Canvas HTML5 personalizado
+   • Matriz de 7 días x 24 horas
+   • Escala de colores de azul claro a azul oscuro
+   • Números visibles en cada celda
+   • Tooltip con información detallada
+
+✅ 3. ESTADÍSTICA DE HORA PICO
+   • Tarjeta destacada con gradiente
+   • Muestra día y hora con mayor actividad
+   • Cantidad de tickets en ese momento
+   • Actualización automática según filtro de año
+
+✅ 4. LEYENDA DE COLORES
+   • Escala visual de intensidad
+   • 5 niveles de color (menos a más actividad)
+   • Ayuda a interpretar el mapa rápidamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DATOS DEL HEATMAP (TODOS LOS AÑOS)
+
+🔥 HORA PICO DE MAYOR ACTIVIDAD:
+   • Día: Martes
+   • Hora: 14:00h (2:00 PM)
+   • Tickets: 26
+
+📅 DISTRIBUCIÓN POR DÍA DE LA SEMANA:
+   • Lunes:     141 tickets (22.5%)
+   • Martes:    154 tickets (24.6%) ← Día más activo
+   • Miércoles: 120 tickets (19.1%)
+   • Jueves:    121 tickets (19.3%)
+   • Viernes:    88 tickets (14.1%)
+   • Sábado:      0 tickets (0.0%)
+   • Domingo:     2 tickets (0.3%)
+
+⏰ PATRONES HORARIOS IDENTIFICADOS:
+   • Horario laboral: 8:00h - 18:00h (mayor actividad)
+   • Hora pico: 14:00h - 15:00h (tarde)
+   • Hora tranquila: 0:00h - 7:00h (madrugada)
+   • Fin de semana: Casi sin actividad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 CÓMO USAR EL MAPA DE CALOR
+
+1️⃣ ACCEDER AL HEATMAP:
+   • Ir a http://localhost:8080
+   • Click en "📈 Análisis de Tendencias y Carga"
+   • Desplazarse hasta "🔥 Mapa de Calor: Volumen por Día y Hora"
+
+2️⃣ INTERPRETAR LOS COLORES:
+   • Azul muy claro: 0-20% de actividad máxima
+   • Azul claro: 20-40% de actividad
+   • Azul medio: 40-60% de actividad
+   • Azul oscuro: 60-80% de actividad
+   • Azul muy oscuro: 80-100% de actividad (pico)
+
+3️⃣ LEER LOS DATOS:
+   • Eje Y (vertical): Días de la semana
+   • Eje X (horizontal): Horas del día (0-23)
+   • Números en celdas: Cantidad de tickets creados
+   • Celdas vacías: Sin actividad en ese momento
+
+4️⃣ IDENTIFICAR PATRONES:
+   • Columnas oscuras: Horas con mucha actividad
+   • Filas oscuras: Días con mucha actividad
+   • Celda más oscura: Hora pico absoluta
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 EJEMPLO DE RESPUESTA API
+
+GET http://localhost:8080/api/trends
+
+{
+  "total_tickets": 626,
+  "daily": { ... },
+  "weekly": { ... },
+  "heatmap": {
+    "matrix": [
+      {
+        "day": "Lunes",
+        "day_index": 0,
+        "hours": [
+          { "hour": 0, "count": 0 },
+          { "hour": 1, "count": 0 },
+          { "hour": 8, "count": 5 },
+          { "hour": 9, "count": 12 },
+          { "hour": 10, "count": 18 },
+          { "hour": 14, "count": 22 },
+          ...
+        ]
+      },
+      {
+        "day": "Martes",
+        "day_index": 1,
+        "hours": [
+          { "hour": 0, "count": 0 },
+          { "hour": 14, "count": 26 },  ← Hora pico
+          ...
+        ]
+      },
+      ...
+    ],
+    "max_value": 26,
+    "peak_hour": {
+      "day": "Martes",
+      "hour": 14,
+      "count": 26
+    }
+  },
+  "year_filter": null,
+  "generated_at": "2026-01-19T..."
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 INSIGHTS Y ANÁLISIS
+
+🔍 ANÁLISIS DE DÍAS DE LA SEMANA:
+
+**Martes (154 tickets - 24.6%):**
+• Día más activo de la semana
+• Posible razón: Acumulación de issues del lunes
+• Recomendación: Reforzar equipo los martes
+
+**Lunes (141 tickets - 22.5%):**
+• Segundo día más activo
+• Posible razón: Inicio de semana laboral
+• Tickets acumulados del fin de semana
+
+**Viernes (88 tickets - 14.1%):**
+• Menos actividad que días centrales
+• Usuarios menos proactivos al final de semana
+• Equipo puede enfocarse en resolución
+
+**Fin de Semana (2 tickets - 0.3%):**
+• Actividad casi nula
+• Solo incidencias críticas
+• Soporte mínimo requerido
+
+🔍 ANÁLISIS DE HORARIOS:
+
+**Horario Pico (14:00h - 15:00h):**
+• Máxima actividad después del almuerzo
+• 26 tickets en la hora pico (Martes 14:00h)
+• Usuarios reportan issues acumulados
+• Crítico tener equipo completo disponible
+
+**Mañana (9:00h - 12:00h):**
+• Alta actividad al inicio del día
+• Usuarios reportan problemas del día anterior
+• Segundo período más activo
+
+**Tarde (16:00h - 18:00h):**
+• Actividad moderada
+• Últimos reportes antes de fin de jornada
+• Equipo debe estar disponible para cierres
+
+**Noche/Madrugada (19:00h - 7:00h):**
+• Actividad mínima o nula
+• Soporte 24/7 no necesario
+• Recursos pueden reducirse
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 DETALLES TÉCNICOS
+
+CAMBIOS EN freshdesk_server.py:
+
+1. **Agregado diccionario de heatmap** (línea ~949):
+   ```python
+   heatmap_data = defaultdict(lambda: defaultdict(int))
+   ```
+
+2. **Captura de día y hora** (línea ~970):
+   ```python
+   day_of_week = created_dt.weekday()  # 0=Lunes, 6=Domingo
+   hour_of_day = created_dt.hour
+   heatmap_data[day_of_week][hour_of_day] += 1
+   ```
+
+3. **Preparación de matriz** (línea ~1022):
+   ```python
+   heatmap_matrix = []
+   day_names = ['Lunes', 'Martes', 'Miércoles', 'Jueves',
+                'Viernes', 'Sábado', 'Domingo']
+
+   for day in range(7):
+       day_data = {'day': day_names[day], 'hours': []}
+       for hour in range(24):
+           count = heatmap_data[day][hour]
+           day_data['hours'].append({'hour': hour, 'count': count})
+       heatmap_matrix.append(day_data)
+   ```
+
+4. **Cálculo de hora pico** (línea ~1048):
+   ```python
+   peak_hour_data = None
+   for day in range(7):
+       for hour in range(24):
+           if heatmap_data[day][hour] == max_tickets_hour:
+               peak_hour_data = {
+                   'day': day_names[day],
+                   'hour': hour,
+                   'count': max_tickets_hour
+               }
+   ```
+
+CAMBIOS EN visor_freshdesk_final.html:
+
+1. **HTML del heatmap** (línea ~874):
+   - Tarjeta de hora pico con gradiente
+   - Canvas para el mapa de calor
+   - Leyenda de colores con 5 niveles
+
+2. **Función createHeatmap()** (línea ~2269):
+   ```javascript
+   function createHeatmap(heatmapData) {
+       const canvas = document.getElementById('heatmapChart');
+       const ctx = canvas.getContext('2d');
+
+       // Configuración del canvas
+       const cellWidth = 40;
+       const cellHeight = 35;
+
+       // Función de color según intensidad
+       function getColor(value, max) {
+           const intensity = value / max;
+           // Escala de azules (5 niveles)
+       }
+
+       // Dibujar celdas con números
+       // Dibujar ejes y títulos
+   }
+   ```
+
+3. **Actualización en displayTrends()** (línea ~1972):
+   ```javascript
+   if (trendsData.heatmap && trendsData.heatmap.peak_hour) {
+       const peak = trendsData.heatmap.peak_hour;
+       document.getElementById('peakHourInfo').textContent =
+           `${peak.day}, ${peak.hour}:00h`;
+       document.getElementById('peakHourCount').textContent = peak.count;
+   }
+
+   createHeatmap(trendsData.heatmap);
+   ```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 VISUALIZACIÓN EN LA INTERFAZ
+
+┌─────────────────────────────────────────────────────────────┐
+│ 🔥 MAPA DE CALOR: VOLUMEN POR DÍA Y HORA                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│ [Tarjeta Rosa con Gradiente]                                │
+│ 🔥 Hora Pico de Mayor Carga                                │
+│ Martes, 14:00h                                        26    │
+│                                                              │
+├─────────────────────────────────────────────────────────────┤
+│                    Hora del Día                              │
+│       0h 1h 2h 3h 4h ... 14h 15h ... 22h 23h                │
+│                                                              │
+│ Lun   ⬜ ⬜ ⬜ ⬜ ⬜ ... 🟦  🟦 ...  ⬜  ⬜                │
+│ Mar   ⬜ ⬜ ⬜ ⬜ ⬜ ... 🟦  🟦 ...  ⬜  ⬜                │
+│ Mié   ⬜ ⬜ ⬜ ⬜ ⬜ ... 🟦  🟦 ...  ⬜  ⬜                │
+│ Jue   ⬜ ⬜ ⬜ ⬜ ⬜ ... 🟦  🟦 ...  ⬜  ⬜                │
+│ Vie   ⬜ ⬜ ⬜ ⬜ ⬜ ... 🟦  🟦 ...  ⬜  ⬜                │
+│ Sáb   ⬜ ⬜ ⬜ ⬜ ⬜ ... ⬜  ⬜ ...  ⬜  ⬜                │
+│ Dom   ⬜ ⬜ ⬜ ⬜ ⬜ ... ⬜  ⬜ ...  ⬜  ⬜                │
+│                                                              │
+│ Leyenda: ⬜ Menos actividad → 🟦 Más actividad             │
+└─────────────────────────────────────────────────────────────┘
+
+ESCALA DE COLORES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#e3f2fd (muy claro)  →  0-20% de actividad
+#90caf9 (claro)      → 20-40% de actividad
+#42a5f5 (medio)      → 40-60% de actividad
+#1976d2 (oscuro)     → 60-80% de actividad
+#0d47a1 (muy oscuro) → 80-100% de actividad (pico)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 CASOS DE USO DEL HEATMAP
+
+1. **PLANIFICACIÓN DE TURNOS:**
+   • Identificar horarios que requieren más personal
+   • Ajustar turnos según demanda real
+   • Reducir costos en horarios de baja actividad
+
+2. **MANTENIMIENTOS PROGRAMADOS:**
+   • Programar mantenimientos en horarios de baja actividad
+   • Minimizar impacto en usuarios
+   • Mejor ejemplo: Madrugada (0:00h - 7:00h) o fines de semana
+
+3. **ANÁLISIS DE COMPORTAMIENTO:**
+   • Entender cuándo los usuarios reportan más problemas
+   • Detectar patrones de uso del servicio
+   • Identificar si hay correlación con otros eventos
+
+4. **CAPACITACIÓN Y REUNIONES:**
+   • Programar capacitaciones en horarios de baja demanda
+   • Evitar reuniones de equipo en horas pico
+   • Ejemplo: Viernes por la tarde o temprano en la mañana
+
+5. **PREDICCIÓN Y ESCALADO:**
+   • Preparar recursos antes de las horas pico
+   • Escalar servicios en la nube según patrones
+   • Anticipar períodos de alta demanda
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 PRUEBAS REALIZADAS
+
+✅ Endpoint /api/trends devuelve estructura de heatmap
+✅ Matriz de 7x24 se genera correctamente
+✅ Valor máximo se calcula correctamente (26 tickets)
+✅ Hora pico se identifica correctamente (Martes 14:00h)
+✅ Distribución por día suma correctamente (626 tickets total)
+✅ Canvas se renderiza sin errores
+✅ Colores se escalan según intensidad
+✅ Números se muestran en cada celda
+✅ Ejes X e Y se etiquetan correctamente
+✅ Integración con selector de año funciona
+✅ Tarjeta de hora pico se actualiza dinámicamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 COMPARACIÓN CON OTRAS VISUALIZACIONES
+
+GRÁFICO DE LÍNEAS DIARIO:
+• Muestra tendencia temporal día a día
+• Útil para: Ver evolución en el tiempo
+
+GRÁFICO DE LÍNEAS SEMANAL:
+• Muestra tendencia por semanas
+• Útil para: Análisis de largo plazo
+
+MAPA DE CALOR (HEATMAP) ← NUEVO:
+• Muestra patrones por día y hora
+• Útil para: Planificación de recursos y turnos
+• Ventaja: Visualización en 2 dimensiones
+• Insight único: Identifica momentos específicos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 COMPATIBILIDAD
+
+✅ No rompe funcionalidad existente
+✅ Compatible con todas las versiones anteriores
+✅ Se integra en la pestaña de Tendencias existente
+✅ Respeta el selector de año
+✅ Cache se gestiona automáticamente
+✅ Funciona en todos los navegadores modernos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 RECOMENDACIONES BASADAS EN EL HEATMAP
+
+🔴 ACCIÓN INMEDIATA:
+• Reforzar equipo los **Martes entre 14:00h-15:00h**
+• Asegurar disponibilidad completa en hora pico
+• Preparar respuestas rápidas para ese horario
+
+🟡 OPTIMIZACIÓN:
+• Reducir personal en **horarios 19:00h-7:00h**
+• Considerar soporte reducido en fines de semana
+• Redistribuir recursos a horas de mayor demanda
+
+🟢 MANTENIMIENTO:
+• Programar actualizaciones los **Sábados y Domingos**
+• Realizar mantenimientos en **madrugada (0:00h-6:00h)**
+• Capacitaciones los **Viernes por la tarde**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTADO FINAL
+
+Versión: 5.7 (Mapa de Calor - Heatmap)
+Estado: ✅ COMPLETADO Y FUNCIONANDO
+Servidor: ✅ Corriendo en http://localhost:8080
+
+Funcionalidades del Sistema Completo:
+✅ 5 pestañas interactivas:
+   1. 📋 Todos los Tickets
+   2. 🔄 Análisis de Recurrencia
+   3. ⚠️ Análisis por Criticidad
+   4. 📊 Métricas de Rendimiento (KPIs)
+   5. 📈 Análisis de Tendencias y Carga
+      - Gráfico diario
+      - Gráfico semanal
+      - 🔥 Mapa de Calor ← NUEVO
+
+Endpoints disponibles:
+• GET /api/tickets
+• GET /api/recurring
+• GET /api/criticality
+• GET /api/kpis
+• GET /api/trends (ahora incluye heatmap) ← ACTUALIZADO
+
+Análisis disponibles:
+📊 Distribución general
+🔄 Tickets recurrentes
+⚠️ Análisis por criticidad
+📈 KPIs de rendimiento
+📈 Tendencias temporales
+🔥 Mapa de calor día/hora ← NUEVO
+
+🎉 ¡MAPA DE CALOR IMPLEMENTADO CON ÉXITO!
+
+Fecha: 19 de Enero 2026
+Cliente: AFJ Global
+Versión: 5.7
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 ARCHIVOS MODIFICADOS
+
+freshdesk_server.py:
+• Agregado diccionario heatmap_data
+• Captura de día de semana y hora
+• Preparación de matriz 7x24
+• Cálculo de hora pico
+• Nuevo campo en respuesta: "heatmap"
+
+visor_freshdesk_final.html:
+• Agregada sección de Mapa de Calor
+• Tarjeta de hora pico con gradiente
+• Canvas para renderizado del heatmap
+• Función createHeatmap() con Canvas 2D
+• Leyenda de colores
+• Integración con displayTrends()
+
+VERSION_5.7_MAPA_CALOR.txt ← ESTE ARCHIVO
+• Documentación completa del heatmap
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💾 HISTORIAL DE VERSIONES
+
+• v5.7 (HOY) → Mapa de Calor (Heatmap) ← ACTUAL
+• v5.6 (AYER) → Análisis de Tendencias y Carga
+• v5.5 (AYER) → Desglose de KPIs por año
+• v5.4 (AYER) → Métricas de rendimiento (KPIs)
+• v5.3 (AYER) → Corrección asuntos vacíos
+• v5.2 (AYER) → Filtrado por año en análisis
+• v5.1 (AYER) → Clasificación mejorada expandida
+• v5.0 (AYER) → Selector de año + clasificación por contenido
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+¡Listo para optimizar la gestión de recursos con datos! 🔥📊

@@ -1,0 +1,197 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🚀 GUÍA RÁPIDA: PUBLICAR EN INTERNET (5 PASOS)             ║
+╚══════════════════════════════════════════════════════════════╝
+
+⏱️ Tiempo total: 15-20 minutos
+💰 Costo: GRATIS (Render.com Free Tier)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 PASO 1: CREAR CUENTA RENDER.COM (3 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 https://render.com
+
+1. Click "Get Started" o "Sign Up"
+2. Elegir una opción:
+   ✅ Sign up with GitHub (RECOMENDADO)
+   • Sign up with GitLab
+   • Sign up with Google
+   • Sign up with Email
+
+3. Completar registro (gratis, sin tarjeta)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 PASO 2: SUBIR CÓDIGO A GITHUB (5 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 https://github.com/new
+
+1. Crear nuevo repositorio:
+   • Name: freshdesk-viewer-afj
+   • Private o Public: PRIVATE (recomendado)
+   • NO inicializar con README
+
+2. Conectar repo local (OPCIÓN A - Terminal):
+
+   cd ~/freshdesk-viewer-backup
+   git remote add origin https://github.com/TU_USUARIO/freshdesk-viewer-afj.git
+   git push -u origin main
+
+   O subir manualmente (OPCIÓN B - Browser):
+   • Click "uploading an existing file"
+   • Subir estos 4 archivos:
+     - freshdesk_server.py
+     - visor_freshdesk_final.html
+     - requirements.txt
+     - render.yaml
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PASO 3: CREAR WEB SERVICE EN RENDER (2 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. En Render Dashboard: Click "New +"
+
+2. Seleccionar "Web Service"
+
+3. Conectar repositorio GitHub:
+   • Autorizar Render si es primera vez
+   • Seleccionar: freshdesk-viewer-afj
+
+4. Configurar:
+
+   Name: freshdesk-viewer-afj
+   Region: Oregon (US West)
+   Branch: main
+   Runtime: Python 3
+   Build Command: pip install -r requirements.txt
+   Start Command: python freshdesk_server.py
+   Instance Type: Free
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 PASO 4: CONFIGURAR VARIABLES DE ENTORNO (1 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ CRÍTICO - NO OMITIR ESTE PASO
+
+Click "Advanced" o ir a "Environment"
+
+Agregar estas 2 variables:
+
+┌──────────────────────┬─────────────────────────────┐
+│ FRESHDESK_API_KEY    │ 6egUChwBAUA2633n18DC        │
+│ FRESHDESK_DOMAIN     │ consultame                  │
+└──────────────────────┴─────────────────────────────┘
+
+⚠️ Copiar exactamente como está (sin espacios extras)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏳ PASO 5: DEPLOY Y OBTENER URL (5 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Click "Create Web Service"
+
+2. Esperar deployment:
+   ==> Building...
+   ==> Build successful!
+   ==> Deploying...
+   ==> Service is live! ✅
+
+3. Copiar tu URL pública:
+   https://freshdesk-viewer-afj.onrender.com
+
+4. ¡PROBAR! Abrir URL en navegador
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ VERIFICACIÓN POST-DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+☐ Página carga correctamente
+☐ Tab "Todos los Tickets" muestra datos
+☐ Los 5 tabs funcionan
+☐ Heatmap se visualiza
+☐ Probado desde móvil
+☐ Probado con datos móviles (no WiFi de oficina)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 ¡LISTO! COMPARTIR CON TU EQUIPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mensaje para enviar:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 VISOR DE FRESHDESK - AFJ GLOBAL
+
+🌐 https://freshdesk-viewer-afj.onrender.com
+
+✨ Accesible desde cualquier lugar del mundo
+📱 Compatible con PC, móviles y tablets
+
+5 tabs interactivos:
+• 📋 Todos los Tickets
+• 🔄 Análisis de Recurrencia
+• ⚠️ Análisis por Criticidad
+• 📊 KPIs de Rendimiento
+• 📈 Tendencias + Mapa de Calor
+
+💡 Primera carga puede tomar ~30 seg (servicio gratis)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚨 PROBLEMAS COMUNES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Build failed
+   → Verificar requirements.txt en repo
+   → Ver logs en Render Dashboard
+
+❌ No cargan tickets
+   → Verificar variables de entorno
+   → FRESHDESK_API_KEY debe ser exacta
+   → FRESHDESK_DOMAIN = consultame (sin .freshdesk.com)
+
+❌ Muy lento
+   → Normal primera carga (~30 seg)
+   → Servicio gratis se suspende tras 15 min inactivo
+   → Cargas siguientes más rápidas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTACIÓN COMPLETA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para más detalles, ver:
+
+📄 ~/Desktop/DEPLOY_INTERNET_RENDER.txt
+   → Guía completa con screenshots y troubleshooting
+
+📄 ~/Desktop/RESUMEN_DEPLOYMENT_INTERNET.txt
+   → Resumen ejecutivo del deployment
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 ACTUALIZACIONES FUTURAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para hacer cambios:
+
+cd ~/freshdesk-viewer-backup
+# Modificar archivos
+git add .
+git commit -m "Descripción"
+git push
+
+→ Render re-deploy automático (2-3 min)
+→ URL sigue siendo la misma
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fecha: 19 de Enero 2026
+Versión: 5.8 (Internet-ready)

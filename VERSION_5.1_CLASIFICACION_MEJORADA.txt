@@ -1,0 +1,317 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🔥 VERSIÓN 5.1 - CLASIFICACIÓN MEJORADA                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ ACTUALIZACIÓN COMPLETADA CON ÉXITO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CAMBIOS IMPLEMENTADOS
+
+🎯 NUEVA CLASIFICACIÓN DE CRITICIDAD MÁS ESPECÍFICA
+
+La clasificación ahora detecta muchos más casos críticos e importantes
+basándose en palabras clave específicas del contenido del ticket.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 ESTADÍSTICAS ACTUALES (626 tickets totales)
+
+📕 PRIORIDAD ALTA (CRÍTICO) - 26 tickets (4.2%)
+   Incluye:
+   • AWS y alarmas de servidores
+   • Problemas de acceso al escritorio remoto
+   • Correos sospechosos de virus
+   • Alertas de amenaza
+   • Errores de acceso al servidor
+   • Acceso urgente a plataforma AFJLearning
+   • Lentitud crítica de SharePoint
+   • Cursos de Moodle
+
+   Top 10 tickets más frecuentes:
+   1. RV: ALARM: "AJFLearning-CPU-Utilization" in EU (Frankfurt) → 6x
+   2. Undeliverable: AFJLearning: Estado de la Copia de Seguridad → 4x
+   3. Problemas para acceso al Escritorio Remoto → 1x
+   4. FW: mail sospechoso de virus → 1x
+   5. ALERTA AMENAZA EQUIPO SILVIA ALONSO → 1x
+   6. ERROR ACCESO SERVIDOR → 1x
+   7. URGENTE NO ACCESO A LA PLATAFORMA AFJLEARNING → 1x
+   8. FW: Correo sospechoso → 1x
+   9. LENTITUD DE SHAREPOINT QUE HACE INVIABLE TRABAJAR → 1x
+   10. Varios más...
+
+
+📙 PRIORIDAD MEDIA (IMPORTANTE) - 54 tickets (8.6%)
+   Incluye:
+   • Problemas con Outlook
+   • Problemas con correos
+   • Acceso a FUNDAE
+   • Limpieza de buzón
+   • Alertas de antivirus
+   • PST (archivos de datos de Outlook)
+   • Revisar PC
+   • Acceso a SharePoint
+   • Correos spam
+   • Cambio de licencia
+   • Acceso a carpetas
+
+   Top 10 tickets más frecuentes:
+   1. RE: Acceso FUNDAE → 3x
+   2. RE: Aviso Limpieza de Buzón → 3x
+   3. Alertas de Antivirus (ESET) → 3x
+   4. PST 2025 → 2x
+   5. PST Bryam Cuellar → 2x
+   6. Cambio licencia - Jorge Hernández → 2x
+   7. revisar pc - andrea Charin → 1x
+   8. Acceso Share Point - Carmen Orellana → 1x
+   9. FW: CORREO SPAM Y WHATSAPP DE LYDIA → 1x
+   10. PST 2025 SILVIA ALONSO → 1x
+
+
+📗 PRIORIDAD BAJA (NORMAL) - 546 tickets (87.2%)
+   Incluye:
+   • Revisión de Windows
+   • Mensajes de ausencia
+   • Solicitudes de revisión de equipos
+   • Altas y bajas de usuarios
+   • Redirección de correos
+   • Habilitar portátiles
+   • Instalaciones de software (Nitro PDF, impresoras)
+   • Consultas varias de AFJ
+   • Todo lo demás...
+
+   Top 10 tickets más frecuentes:
+   1. Agenda Revisión Windows → 11x
+   2. RE: Revisión Windows 10 → 10x
+   3. Revisión Windows 10 → 9x
+   4. Mensaje Ausencia Vacaciones → 8x
+   5. VARIAS CONSULTAS AFJ → 8x
+   6. RE: Revisión Windows → 7x
+   7. Redirección de correos → múltiples
+   8. Nueva alta → múltiples
+   9. Nueva baja → múltiples
+   10. Y muchos más...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PALABRAS CLAVE DETECTADAS
+
+📕 ALTA (CRÍTICO):
+   ✓ aws
+   ✓ alarm:
+   ✓ afjlearning-cpu-utilization
+   ✓ no enciende el equipo / no enciende
+   ✓ problemas para acceso al escritorio remoto
+   ✓ escritorio remoto
+   ✓ mail sospechoso de virus / correo sospechoso
+   ✓ alerta amenaza
+   ✓ error acceso servidor / acceso servidor
+   ✓ urgente no acceso
+   ✓ no acceso a la plataforma
+   ✓ afjlearning
+   ✓ lentitud de sharepoint / lentitud sharepoint
+   ✓ inviable trabajar
+   ✓ nuevos curso moodle / nuevo curso moodle / moodle
+
+📙 MEDIA (IMPORTANTE):
+   ✓ problemas outlook
+   ✓ problemas correo
+   ✓ acceso fundae / fundae
+   ✓ limpieza de buzon / limpieza buzon
+   ✓ alertas de antivirus / alerta antivirus / alertas antivirus
+   ✓ aviso antivirus
+   ✓ pst
+   ✓ revisar pc
+   ✓ acceso share point / acceso sharepoint / sharepoint
+   ✓ aviso limpieza
+   ✓ posible correo spam / correo spam
+   ✓ falla outlook / falla outllook
+   ✓ cambio licencia
+   ✓ nuevamente el error
+   ✓ acceso carpeta
+
+📗 BAJA (NORMAL):
+   ✓ Todo lo que NO está en las categorías anteriores
+   ✓ Incluye: revisión windows, mensajes ausencia, altas/bajas,
+     redirección correos, instalaciones, consultas generales, etc.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 CÓMO USAR LA NUEVA VERSIÓN
+
+1️⃣ ACCEDER AL VISOR:
+   http://localhost:8080
+
+2️⃣ IR AL TAB DE CRITICIDAD:
+   • Click en "⚠️ Análisis por Criticidad"
+   • Verás las estadísticas actualizadas:
+     - 🔴 ALTA: 26 tickets (4.2%)
+     - 🟡 MEDIA: 54 tickets (8.6%)
+     - 🟢 BAJA: 546 tickets (87.2%)
+
+3️⃣ EXPLORAR POR NIVEL:
+   • Usa el dropdown para ver tickets de cada nivel
+   • Verás los Top 20 más frecuentes en gráfico de barras
+   • Lista completa con IDs de tickets expandibles
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 ENDPOINTS API
+
+ANÁLISIS DE CRITICIDAD (NUEVO):
+http://localhost:8080/api/criticality-custom
+
+EJEMPLO DE RESPUESTA:
+{
+  "analysis": {
+    "Alto": {
+      "count": 26,
+      "percentage": 4.2,
+      "top_subjects": [
+        {
+          "subject": "RV: ALARM: \"AJFLearning-CPU-Utilization\"",
+          "count": 6,
+          "ticket_ids": [...]
+        },
+        ...
+      ]
+    },
+    "Medio": { ... },
+    "Bajo": { ... }
+  },
+  "total_tickets": 626,
+  "generated_at": "2026-01-18T..."
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 COMPARACIÓN CON VERSIÓN ANTERIOR
+
+ANTES (v5.0):
+❌ ALTA: 0 tickets (0%)
+❌ MEDIA: 27 tickets (4.3%)
+❌ BAJA: 599 tickets (95.7%)
+❌ Clasificación muy básica, solo detectaba pocas palabras clave
+
+AHORA (v5.1):
+✅ ALTA: 26 tickets (4.2%)
+✅ MEDIA: 54 tickets (8.6%)
+✅ BAJA: 546 tickets (87.2%)
+✅ Clasificación mucho más completa y precisa
+✅ Detecta casos críticos reales (alarmas AWS, virus, accesos urgentes)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💾 BACKUP ACTUALIZADO
+
+✅ Commit realizado: 771a4fb
+✅ Ubicación: ~/freshdesk-viewer-backup/
+✅ Versión: 5.1
+
+Historial de commits:
+• v5.1 (HOY) → Clasificación mejorada y expandida
+• v5.0 (HOY) → Selector de año + clasificación por contenido
+• v4.5 → Sistema funcionando correctamente
+• v4.0 → Backup inicial con 3 tabs
+
+Para ver detalles:
+   cd ~/freshdesk-viewer-backup
+   git log --oneline
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ EJEMPLOS DE TICKETS CRÍTICOS DETECTADOS
+
+Estos son ejemplos REALES de tu sistema que ahora se clasifican como ALTA:
+
+1. 🚨 ALARM: "AJFLearning-CPU-Utilization" in EU (Frankfurt)
+   → Aparece 6 veces
+   → Crítico porque indica problema de CPU en servidor AWS
+
+2. 🚨 URGENTE NO ACCESO A LA PLATAFORMA AFJLEARNING
+   → Problema crítico de acceso a plataforma principal
+
+3. 🚨 LENTITUD DE SHAREPOINT QUE HACE INVIABLE TRABAJAR
+   → Problema que impide trabajar
+
+4. 🚨 ALERTA AMENAZA EQUIPO SILVIA ALONSO
+   → Amenaza de seguridad
+
+5. 🚨 ERROR ACCESO SERVIDOR
+   → Falla de infraestructura
+
+6. 🚨 FW: mail sospechoso de virus
+   → Amenaza de seguridad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 VISUALIZACIÓN EN EL VISOR
+
+En la interfaz web verás:
+
+TAB "⚠️ Análisis por Criticidad (Basado en Contenido)"
+
+┌─────────────────────────────────────────────────┐
+│ 📝 Nota: Esta clasificación analiza el         │
+│ contenido de cada ticket para determinar su    │
+│ criticidad real, no usa la prioridad asignada  │
+│ en Freshdesk.                                   │
+└─────────────────────────────────────────────────┘
+
+┌──────────┬──────────┬──────────┬──────────┐
+│ 🟢 BAJA  │ 🟡 MEDIA │ 🔴 ALTA  │ ⚠️ URG. │
+│   546    │    54    │    26    │    0     │
+│  87.2%   │   8.6%   │   4.2%   │   0%     │
+└──────────┴──────────┴──────────┴──────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 PRUEBAS REALIZADAS
+
+✅ Servidor reiniciado con nueva clasificación
+✅ Endpoint /api/criticality-custom funcionando
+✅ 26 tickets clasificados como ALTA (4.2%)
+✅ 54 tickets clasificados como MEDIA (8.6%)
+✅ 546 tickets clasificados como BAJA (87.2%)
+✅ Palabras clave funcionando correctamente:
+   - "AWS" → detectado ✓
+   - "ALARM:" → detectado ✓
+   - "escritorio remoto" → detectado ✓
+   - "virus" → detectado ✓
+   - "FUNDAE" → detectado ✓
+   - "PST" → detectado ✓
+   - "SharePoint" → detectado ✓
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PRÓXIMOS PASOS
+
+El sistema está completamente funcional. Puedes:
+
+1. ✅ Abrir http://localhost:8080
+2. ✅ Ir al tab "⚠️ Análisis por Criticidad"
+3. ✅ Ver las nuevas estadísticas con 26 tickets ALTA
+4. ✅ Explorar cada nivel de criticidad
+5. ✅ Usar el selector de año (2025/2026/Todos)
+
+Si necesitas ajustar alguna palabra clave o agregar más casos,
+solo avísame y lo actualizo inmediatamente.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTADO FINAL
+
+Versión: 5.1 (Clasificación Mejorada)
+Estado: ✅ COMPLETADO Y FUNCIONANDO
+Servidor: ✅ Corriendo en http://localhost:8080
+Backup: ✅ Actualizado en Git (commit 771a4fb)
+Tickets totales: 626
+  • ALTA: 26 (4.2%)
+  • MEDIA: 54 (8.6%)
+  • BAJA: 546 (87.2%)
+
+🎉 ¡CLASIFICACIÓN MEJORADA Y FUNCIONANDO!
+
+Fecha: 18 de Enero 2026
+Cliente: AFJ Global
+Versión: 5.1

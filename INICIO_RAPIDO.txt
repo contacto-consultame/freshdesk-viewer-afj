@@ -1,0 +1,84 @@
+╔════════════════════════════════════════════════════════════╗
+║  🎫 VISOR DE TICKETS FRESHDESK - TIEMPO REAL               ║
+║     AFJ Global | 2025 - 2026                               ║
+╚════════════════════════════════════════════════════════════╝
+
+✅ EL SERVIDOR YA ESTÁ CORRIENDO!
+
+🌐 ABRE TU NAVEGADOR Y VE A:
+
+   http://localhost:8080
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 FORMAS DE INICIAR LA APLICACIÓN:
+
+1️⃣  MÉTODO FÁCIL (Recomendado):
+    ➜ Haz doble clic en: INICIAR_FRESHDESK.command
+    ➜ Está en tu Escritorio
+
+2️⃣  MÉTODO MANUAL:
+    ➜ Abre Terminal
+    ➜ Ejecuta: python3 ~/freshdesk_server.py
+    ➜ Abre navegador: http://localhost:8080
+
+3️⃣  MÉTODO DIRECTO:
+    ➜ Si el servidor ya está corriendo
+    ➜ Solo abre: http://localhost:8080
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ FUNCIONALIDADES:
+
+🟢 EN VIVO       - Badge verde = Datos en tiempo real
+🔄 ACTUALIZAR    - Botón para refrescar datos de Freshdesk
+🔍 BUSCAR        - Busca por asunto, descripción o ID
+🎯 FILTRAR       - Por prioridad: Baja, Media, Alta, Urgente
+✅ SELECCIONAR   - Marca múltiples tickets con checkbox
+📊 ESTADÍSTICAS  - Contadores por prioridad en tiempo real
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🛑 PARA DETENER EL SERVIDOR:
+
+Método 1: Presiona Ctrl+C en la terminal donde corre
+Método 2: Ejecuta en terminal: pkill -f freshdesk_server.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ INFORMACIÓN TÉCNICA:
+
+Puerto:       8080
+Cliente:      AFJ Global
+Company ID:   63000424434
+Dominio:      consultame.freshdesk.com
+Período:      2025-01-01 hasta hoy
+Cache:        5 minutos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ ¿PROBLEMAS?
+
+• "Página no carga" → Verifica que el servidor esté corriendo
+• "Sin datos"       → Click en botón "🔄 Actualizar"
+• "Error 404"       → Usa puerto 8080, no 5000
+• "No conecta"      → Reinicia con INICIAR_FRESHDESK.command
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ARCHIVOS EN TU ESCRITORIO:
+
+✓ INICIAR_FRESHDESK.command  - Doble clic para iniciar
+✓ GUIA_TIEMPO_REAL.md         - Guía completa detallada
+✓ INICIO_RAPIDO.txt           - Este archivo
+✓ reporte_freshdesk_AFJ_Global.xlsx - Excel con datos
+✓ tickets_data.json           - Datos en JSON (backup)
+✓ freshdesk_viewer.html       - Versión offline (backup)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 ¡LISTO PARA USAR!
+
+Abre: http://localhost:8080
+
+Generado: 18 de Enero 2026

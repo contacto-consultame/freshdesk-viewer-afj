@@ -1,0 +1,202 @@
+╔════════════════════════════════════════════════════════════╗
+║  ✨ NUEVAS FUNCIONES - ANÁLISIS DE RECURRENCIA            ║
+║     Visor de Tickets Freshdesk v2.0                        ║
+╚════════════════════════════════════════════════════════════╝
+
+🎉 ¡NUEVA FUNCIONALIDAD AGREGADA!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 ANÁLISIS DE TICKETS RECURRENTES
+
+Ahora puedes identificar fácilmente cuáles son los problemas que
+más se repiten en AFJ Global.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 ¿CÓMO FUNCIONA?
+
+1. Abre la aplicación: http://localhost:8080
+
+2. Verás dos TABS en la parte superior:
+   📋 Todos los Tickets (vista original)
+   🔄 Análisis de Recurrencia (¡NUEVO!)
+
+3. Click en "🔄 Análisis de Recurrencia"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 QUÉ VERÁS:
+
+┌─────────────────────────────────────────────────────────┐
+│ ESTADÍSTICAS GENERALES                                   │
+├─────────────────────────────────────────────────────────┤
+│  • Tickets Recurrentes: Cuántos tickets se repiten      │
+│  • Asuntos Únicos: Cuántos tipos diferentes hay         │
+│  • % de Recurrencia: Porcentaje de tickets repetidos    │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ GRÁFICO DE BARRAS                                        │
+├─────────────────────────────────────────────────────────┤
+│  📊 Top 10 Tickets Más Recurrentes                      │
+│     Visualización con barras de colores que muestran    │
+│     cuántas veces se repite cada tipo de ticket         │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ LISTA DETALLADA                                          │
+├─────────────────────────────────────────────────────────┤
+│  Para cada ticket recurrente verás:                      │
+│  • Asunto del ticket                                     │
+│  • Cuántas veces se repite (ej: 6x)                     │
+│  • Distribución por prioridad                            │
+│  • IDs de todos los tickets relacionados (expandible)   │
+└─────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 EJEMPLO DE USO:
+
+PROBLEMA: Quieres saber qué tickets se repiten más
+
+SOLUCIÓN:
+1. Abre http://localhost:8080
+2. Click en tab "🔄 Análisis de Recurrencia"
+3. Verás algo como:
+
+   6x - Agenda Revisión Windows
+        Bajo: 4 | Medio: 2
+        [Ver IDs de tickets]
+
+   6x - ALARM: "AJFLearning-CPU-Utilization"
+        Alto: 5 | Urgente: 1
+        [Ver IDs de tickets]
+
+4. Click en "Ver IDs de tickets" para ver todos los IDs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔬 ANÁLISIS INTELIGENTE:
+
+El sistema automáticamente:
+
+✓ Agrupa tickets con asuntos similares
+✓ Ignora números y fechas variables
+✓ Normaliza el texto para mejor agrupación
+✓ Muestra ejemplos de variaciones del mismo ticket
+
+Ejemplo:
+  "Revisión Windows 2025-01-15"
+  "Revisión Windows 2025-01-18"
+  → Se agrupan como "Revisión Windows" (2x)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 ESTADÍSTICAS ACTUALES (AFJ GLOBAL):
+
+  Total de tickets: 626
+  Tickets recurrentes: 120 (19.2%)
+  Asuntos únicos: 553
+
+  🏆 TOP 3 MÁS RECURRENTES:
+  1. Agenda Revisión Windows (6 veces)
+  2. ALARM: CPU-Utilization (6 veces)
+  3. Agenda Revisión de Windows (5 veces)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 BENEFICIOS:
+
+✅ Identifica problemas recurrentes rápidamente
+✅ Prioriza qué problemas resolver primero
+✅ Detecta patrones de tickets
+✅ Ayuda a crear soluciones preventivas
+✅ Mejora el tiempo de respuesta
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 NUEVOS ENDPOINTS:
+
+GET /api/recurring
+  └─ Obtiene análisis completo de recurrencia
+
+Ejemplo de uso:
+  curl http://localhost:8080/api/recurring
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 CARACTERÍSTICAS VISUALES:
+
+• Badges de conteo (6x, 5x, etc.)
+• Colores por prioridad
+• Gráfico de barras animado
+• Cards expandibles para ver detalles
+• Hover effects interactivos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 NAVEGACIÓN:
+
+Tab "📋 Todos los Tickets":
+  → Vista original con búsqueda y filtros
+
+Tab "🔄 Análisis de Recurrencia":
+  → Vista nueva con análisis de patrones
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 CÓMO INICIAR:
+
+Método 1: Doble click en INICIAR_FRESHDESK.command
+Método 2: python3 ~/freshdesk_server.py
+Método 3: Abrir http://localhost:8080 (si ya está corriendo)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ARCHIVOS ACTUALIZADOS:
+
+✓ freshdesk_server.py - Nuevo endpoint /api/recurring
+✓ freshdesk_viewer_realtime.html - Nueva sección con tabs
+✓ update_html_with_recurring.py - Script de actualización
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎓 CASOS DE USO:
+
+1. IDENTIFICAR PROBLEMAS CRÍTICOS
+   → Ver qué tickets urgentes se repiten más
+
+2. PLANIFICACIÓN DE SOPORTE
+   → Asignar recursos a problemas frecuentes
+
+3. DOCUMENTACIÓN
+   → Crear guías para tickets recurrentes
+
+4. AUTOMATIZACIÓN
+   → Identificar qué procesos automatizar
+
+5. CAPACITACIÓN
+   → Entrenar al equipo en problemas comunes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🆘 ¿PROBLEMAS?
+
+• No veo la pestaña → Refresca la página (F5 o Cmd+R)
+• Error al cargar → Verifica que el servidor esté corriendo
+• Sin datos → Click en "🔄 Actualizar" en el tab principal
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 ¡LISTO PARA USAR!
+
+1. Abre: http://localhost:8080
+2. Click en tab "🔄 Análisis de Recurrencia"
+3. Explora los tickets recurrentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Versión: 2.0 con Análisis de Recurrencia
+Fecha: 18 de Enero 2026
+Cliente: AFJ Global

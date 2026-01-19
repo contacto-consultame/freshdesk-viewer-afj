@@ -1,0 +1,240 @@
+╔══════════════════════════════════════════════════════════════╗
+║  📊 VERSIÓN 5.5 - DESGLOSE DE KPIs POR AÑO                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+✅ ACTUALIZACIÓN COMPLETADA CON ÉXITO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 NUEVA FUNCIONALIDAD
+
+La pestaña "📊 Métricas de Rendimiento (KPIs)" ahora muestra:
+- KPIs generales (todos los años combinados)
+- **NUEVO:** Comparativa de KPIs desglosados por año
+- **NUEVO:** Tabla detallada de tickets por estado y año
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CAMBIOS IMPLEMENTADOS
+
+✅ 1. ENDPOINT /api/kpis MEJORADO
+   • Ahora incluye campo "kpis_by_year" cuando no hay filtro de año
+   • Calcula KPIs separados para cada año (2024, 2025, 2026, etc.)
+   • Mantiene compatibilidad con versión anterior
+
+✅ 2. TABLA COMPARATIVA DE KPIs POR AÑO
+   • Muestra: Año | Total Tickets | Resueltos | Tiempo Resolución | Abiertos | Cerrados
+   • Ordenada de año más reciente a más antiguo
+   • Colores alternados para mejor legibilidad
+   • Se muestra automáticamente cuando se ven "Todos los años"
+
+✅ 3. TABLA DETALLADA DE ESTADOS POR AÑO
+   • Desglose completo: Abierto, Pendiente, En Espera, Resuelto, Cerrado
+   • Muestra cantidad y porcentaje para cada estado
+   • Iconos de emoji por estado (🔴🟡🟠🟢🔵)
+   • Se oculta cuando se filtra por un año específico
+
+✅ 4. VISUALIZACIÓN DINÁMICA
+   • Las tablas solo aparecen cuando NO hay filtro de año
+   • Desaparecen al filtrar por 2025 o 2026
+   • Permiten comparar tendencias entre años
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 EJEMPLO DE DATOS POR AÑO
+
+🔹 AÑO 2024 (13 tickets):
+   • Total Tickets: 13
+   • Tickets Resueltos: 13
+   • Tiempo de Resolución: 35.03 días (840.64 horas)
+   • Estado: 100% Cerrados
+   • Nota: Año con menor volumen pero mayor tiempo de resolución
+
+🔹 AÑO 2025 (595 tickets):
+   • Total Tickets: 595
+   • Tickets Resueltos: 595
+   • Tiempo de Resolución: 4.16 días (99.91 horas)
+   • Estado: 100% Cerrados
+   • Nota: Año principal con la mayoría de tickets
+
+🔹 AÑO 2026 (18 tickets):
+   • Total Tickets: 18
+   • Tickets Resueltos: 16
+   • Tiempo de Resolución: 6.48 días (155.55 horas)
+   • Estado: 88.9% Cerrados, 11.1% Abiertos
+   • Nota: Año en curso con 2 tickets aún abiertos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 CÓMO USAR LA NUEVA FUNCIONALIDAD
+
+1️⃣ VER COMPARATIVA POR AÑO:
+   • Ir a http://localhost:8080
+   • Click en "📊 Métricas de Rendimiento (KPIs)"
+   • Asegurarse de que el selector de año esté en "📅 Todos los años"
+   • Verás 2 tablas nuevas:
+     - "📅 Comparativa de KPIs por Año"
+     - "📊 Tickets por Estado - Desglose Anual"
+
+2️⃣ ANALIZAR UN AÑO ESPECÍFICO:
+   • Cambiar selector a "📅 Solo 2025"
+   • Las tablas comparativas desaparecen
+   • Solo ves los KPIs de ese año en las tarjetas superiores
+
+3️⃣ COMPARAR TENDENCIAS:
+   • En modo "Todos los años", observar la tabla comparativa
+   • Comparar tiempos de resolución entre años
+   • Identificar mejoras o deterioros en el rendimiento
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 EJEMPLO DE RESPUESTA API
+
+GET http://localhost:8080/api/kpis
+
+{
+  "kpis": {
+    "avg_response_time": { "hours": 18.34, "days": 0.76 },
+    "avg_resolution_time": { "hours": 112.98, "days": 4.71 },
+    "first_contact_resolution_rate": { "percentage": 1.4 },
+    "tickets_by_status": { ... }
+  },
+  "kpis_by_year": {
+    "2024": {
+      "total_tickets": 13,
+      "total_resolved": 13,
+      "avg_resolution_time": { "hours": 840.64, "days": 35.03 },
+      "tickets_by_status": {
+        "Abierto": { "count": 0, "percentage": 0.0 },
+        "Cerrado": { "count": 13, "percentage": 100.0 },
+        ...
+      }
+    },
+    "2025": {
+      "total_tickets": 595,
+      "total_resolved": 595,
+      "avg_resolution_time": { "hours": 99.91, "days": 4.16 },
+      "tickets_by_status": { ... }
+    },
+    "2026": {
+      "total_tickets": 18,
+      "total_resolved": 16,
+      "avg_resolution_time": { "hours": 155.55, "days": 6.48 },
+      "tickets_by_status": { ... }
+    }
+  }
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 INSIGHTS DEL ANÁLISIS COMPARATIVO
+
+🔍 COMPARACIÓN 2024 vs 2025:
+   • Volumen: 13 tickets (2024) → 595 tickets (2025) [+4,477%]
+   • Tiempo Resolución: 35.03 días (2024) → 4.16 días (2025) [-88.1%]
+   • ✅ Conclusión: Gran mejora en eficiencia a pesar del aumento masivo de volumen
+
+🔍 COMPARACIÓN 2025 vs 2026:
+   • Volumen: 595 tickets (2025) → 18 tickets (2026 parcial) [-97%]
+   • Tiempo Resolución: 4.16 días (2025) → 6.48 días (2026) [+55.8%]
+   • ⚠️ Conclusión: Inicio de 2026 muestra aumento en tiempo, pero es muy temprano para conclusiones
+
+🔍 ESTADO DE TICKETS:
+   • 2024: 100% cerrados ✅
+   • 2025: 100% cerrados ✅
+   • 2026: 88.9% cerrados, 11.1% abiertos (2 tickets pendientes)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 DETALLES TÉCNICOS
+
+CAMBIOS EN freshdesk_server.py:
+• Agregado cálculo de kpis_by_year
+• Agrupación de tickets por año
+• Cálculo de KPIs individuales por cada año
+• Nuevo campo en respuesta JSON: "kpis_by_year"
+
+CAMBIOS EN visor_freshdesk_final.html:
+• Agregado div "yearlyComparison" para tabla comparativa
+• Agregado div "yearlyStatusBreakdown" para tabla de estados
+• Agregada función displayYearlyComparison()
+• Las tablas se muestran/ocultan según filtro de año
+• Estilo de tablas con gradientes y alternancia de colores
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💾 BACKUP ACTUALIZADO
+
+✅ Commit realizado: e65cc07
+✅ Ubicación: ~/freshdesk-viewer-backup/
+✅ Versión: 5.5
+
+Historial de commits:
+• v5.5 (HOY) → Desglose de KPIs por año
+• v5.4 (HOY) → Métricas de rendimiento (KPIs)
+• v5.3 (HOY) → Corrección asuntos vacíos
+• v5.2 (HOY) → Filtrado por año en análisis
+• v5.1 (HOY) → Clasificación mejorada expandida
+• v5.0 (HOY) → Selector de año + clasificación por contenido
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 VISUALIZACIÓN EN LA INTERFAZ
+
+TABLA 1 - Comparativa de KPIs por Año:
+┌─────────┬──────────────┬─────────────┬─────────────────┬──────────┬──────────┐
+│   Año   │ Total Tickets│  Resueltos  │ ⏳ Tiempo Resol │ 🔴 Abiertos│ 🔵 Cerrados│
+├─────────┼──────────────┼─────────────┼─────────────────┼──────────┼──────────┤
+│ 📅 2026 │      18      │     16      │    6.48 días    │  2 (11%) │ 16 (89%) │
+│ 📅 2025 │     595      │    595      │    4.16 días    │  0 (0%)  │595 (100%)│
+│ 📅 2024 │      13      │     13      │   35.03 días    │  0 (0%)  │ 13 (100%)│
+└─────────┴──────────────┴─────────────┴─────────────────┴──────────┴──────────┘
+
+TABLA 2 - Tickets por Estado - Desglose Anual:
+┌─────────┬─────────┬───────────┬────────────┬──────────┬──────────┐
+│   Año   │🔴 Abierto│🟡 Pendiente│🟠 En Espera│🟢 Resuelto│🔵 Cerrado│
+├─────────┼─────────┼───────────┼────────────┼──────────┼──────────┤
+│ 📅 2026 │ 2 (11%) │   0 (0%)  │   0 (0%)   │  0 (0%)  │ 16 (89%) │
+│ 📅 2025 │ 0 (0%)  │   0 (0%)  │   0 (0%)   │  0 (0%)  │595 (100%)│
+│ 📅 2024 │ 0 (0%)  │   0 (0%)  │   0 (0%)   │  0 (0%)  │ 13 (100%)│
+└─────────┴─────────┴───────────┴────────────┴──────────┴──────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 PRUEBAS REALIZADAS
+
+✅ Endpoint /api/kpis devuelve kpis_by_year correctamente
+✅ Datos calculados para 2024, 2025 y 2026
+✅ Tabla comparativa se muestra en modo "Todos los años"
+✅ Tablas desaparecen al filtrar por año específico
+✅ Formato de tabla responsivo y legible
+✅ Colores alternados funcionan correctamente
+✅ Porcentajes calculados con precisión
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTADO FINAL
+
+Versión: 5.5 (Desglose de KPIs por Año)
+Estado: ✅ COMPLETADO Y FUNCIONANDO
+Servidor: ✅ Corriendo en http://localhost:8080
+Backup: ✅ Actualizado en Git (commit e65cc07)
+
+Funcionalidades:
+✅ KPIs generales (todos los años)
+✅ Desglose de KPIs por año ← NUEVO
+✅ Tabla comparativa por año ← NUEVO
+✅ Tabla de estados por año ← NUEVO
+✅ Filtrado dinámico por año
+✅ Visualización automática según filtro
+
+Tickets totales: 626
+  • 2024: 13 tickets (2.1%)
+  • 2025: 595 tickets (95.0%)
+  • 2026: 18 tickets (2.9%)
+
+🎉 ¡DESGLOSE POR AÑO IMPLEMENTADO CON ÉXITO!
+
+Fecha: 18 de Enero 2026
+Cliente: AFJ Global
+Versión: 5.5

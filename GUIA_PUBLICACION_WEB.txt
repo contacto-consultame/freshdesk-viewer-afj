@@ -1,0 +1,504 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🌐 GUÍA DE PUBLICACIÓN - VISOR FRESHDESK AFJ GLOBAL         ║
+╚══════════════════════════════════════════════════════════════╝
+
+📋 TABLA DE CONTENIDOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Opciones de Publicación
+2. Opción A: Despliegue en Servidor Local (Red Interna)
+3. Opción B: Despliegue en Servidor VPS/Cloud
+4. Opción C: Despliegue con Docker
+5. Configuración de Seguridad
+6. Acceso desde Múltiples Dispositivos
+7. Solución de Problemas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣ OPCIONES DE PUBLICACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hay 3 opciones principales para publicar tu aplicación:
+
+🏢 OPCIÓN A: Red Local (LAN)
+   • Para: Acceso solo dentro de la oficina
+   • Costo: Gratis
+   • Seguridad: Alta (solo red interna)
+   • Velocidad: Muy rápida
+   • Complejidad: Baja ⭐
+
+☁️ OPCIÓN B: Servidor en la Nube (VPS)
+   • Para: Acceso desde cualquier lugar
+   • Costo: $5-20/mes
+   • Seguridad: Alta (con HTTPS configurado)
+   • Velocidad: Rápida
+   • Complejidad: Media ⭐⭐
+
+🐳 OPCIÓN C: Docker Container
+   • Para: Portabilidad y escalabilidad
+   • Costo: Variable
+   • Seguridad: Alta
+   • Velocidad: Rápida
+   • Complejidad: Media-Alta ⭐⭐⭐
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2️⃣ OPCIÓN A: DESPLIEGUE EN RED LOCAL (RECOMENDADO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Esta es la opción MÁS SIMPLE y SEGURA para empezar.
+
+📝 PASO 1: OBTENER LA IP LOCAL DE TU MÁQUINA
+
+En Mac:
+   ifconfig | grep "inet " | grep -v 127.0.0.1
+
+Ejemplo de salida:
+   inet 192.168.1.100 netmask 0xffffff00 broadcast 192.168.1.255
+
+Tu IP local es: 192.168.1.100
+
+En Windows:
+   ipconfig | findstr IPv4
+
+En Linux:
+   hostname -I
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 2: MODIFICAR EL SERVIDOR PARA ACEPTAR CONEXIONES EXTERNAS
+
+Edita el archivo: freshdesk_server.py
+
+Cambia la línea final:
+   ❌ ANTES:
+   app.run(debug=True, port=8080, host='127.0.0.1')
+
+   ✅ DESPUÉS:
+   app.run(debug=True, port=8080, host='0.0.0.0')
+
+Esto permite conexiones desde cualquier dispositivo en la red local.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 3: CONFIGURAR EL FIREWALL (Mac)
+
+Permitir conexiones entrantes en el puerto 8080:
+
+En Mac (Sistema con Firewall activado):
+   1. Abrir "Preferencias del Sistema"
+   2. Ir a "Seguridad y Privacidad"
+   3. Pestaña "Firewall"
+   4. Click en "Opciones del Firewall"
+   5. Click en "+" para agregar Python
+   6. Permitir conexiones entrantes
+
+O desde terminal:
+   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/python3
+   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/bin/python3
+
+En Windows:
+   netsh advfirewall firewall add rule name="Flask Server" dir=in action=allow protocol=TCP localport=8080
+
+En Linux (UFW):
+   sudo ufw allow 8080/tcp
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 4: INICIAR EL SERVIDOR
+
+   cd /Users/ladydayanaradarobertis
+   python3 freshdesk_server.py
+
+Verás:
+   ============================================================
+   🚀 SERVIDOR FRESHDESK EN TIEMPO REAL
+   ============================================================
+   Cliente: AFJ Global
+   📡 Servidor corriendo en: http://localhost:8080
+   ============================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 5: ACCEDER DESDE OTROS DISPOSITIVOS
+
+Desde cualquier computadora/tablet/teléfono en la MISMA RED:
+
+   http://192.168.1.100:8080
+
+   (Reemplaza 192.168.1.100 con tu IP local del Paso 1)
+
+✅ Deberías ver el visor de Freshdesk funcionando!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 6: MANTENER EL SERVIDOR CORRIENDO (OPCIONAL)
+
+Para que el servidor siga funcionando aunque cierres la terminal:
+
+En Mac/Linux:
+   nohup python3 freshdesk_server.py > ~/freshdesk.log 2>&1 &
+
+Para detenerlo después:
+   ps aux | grep freshdesk_server.py
+   kill [PID]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3️⃣ OPCIÓN B: DESPLIEGUE EN SERVIDOR VPS/CLOUD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para acceso desde INTERNET (fuera de la oficina):
+
+PROVEEDORES RECOMENDADOS:
+• DigitalOcean: $5-10/mes (droplet básico)
+• AWS Lightsail: $3.50-10/mes
+• Linode: $5-10/mes
+• Heroku: Gratis (con limitaciones) o $7/mes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASOS PARA VPS (Ejemplo: DigitalOcean)
+
+1. CREAR UN DROPLET:
+   • OS: Ubuntu 22.04 LTS
+   • Plan: Basic ($6/mes)
+   • Región: Más cercana a ti
+   • SSH Key: Agregar tu llave pública
+
+2. CONECTAR AL SERVIDOR:
+   ssh root@[IP_DEL_SERVIDOR]
+
+3. INSTALAR DEPENDENCIAS:
+   apt update
+   apt install python3 python3-pip git nginx -y
+   pip3 install flask requests
+
+4. COPIAR ARCHIVOS:
+   # Opción 1: Clonar desde Git (si tienes repo)
+   git clone [URL_TU_REPO] /opt/freshdesk-viewer
+
+   # Opción 2: Usar SCP para copiar
+   scp freshdesk_server.py root@[IP]:/opt/freshdesk-viewer/
+   scp visor_freshdesk_final.html root@[IP]:/opt/freshdesk-viewer/
+
+5. CONFIGURAR VARIABLES DE ENTORNO:
+   cd /opt/freshdesk-viewer
+   nano .env
+
+   Agregar:
+   FRESHDESK_API_KEY=tu_api_key_aqui
+   FRESHDESK_DOMAIN=consultame.freshdesk.com
+   COMPANY_ID=63000424434
+
+6. CREAR SERVICIO SYSTEMD:
+   nano /etc/systemd/system/freshdesk-viewer.service
+
+   Contenido:
+   [Unit]
+   Description=Freshdesk Viewer
+   After=network.target
+
+   [Service]
+   Type=simple
+   User=root
+   WorkingDirectory=/opt/freshdesk-viewer
+   ExecStart=/usr/bin/python3 /opt/freshdesk-viewer/freshdesk_server.py
+   Restart=always
+
+   [Install]
+   WantedBy=multi-user.target
+
+7. INICIAR SERVICIO:
+   systemctl enable freshdesk-viewer
+   systemctl start freshdesk-viewer
+   systemctl status freshdesk-viewer
+
+8. CONFIGURAR NGINX (PROXY INVERSO):
+   nano /etc/nginx/sites-available/freshdesk-viewer
+
+   Contenido:
+   server {
+       listen 80;
+       server_name [IP_O_DOMINIO];
+
+       location / {
+           proxy_pass http://127.0.0.1:8080;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+       }
+   }
+
+   ln -s /etc/nginx/sites-available/freshdesk-viewer /etc/nginx/sites-enabled/
+   nginx -t
+   systemctl restart nginx
+
+9. CONFIGURAR HTTPS (OPCIONAL PERO RECOMENDADO):
+   apt install certbot python3-certbot-nginx -y
+   certbot --nginx -d tudominio.com
+
+   Certbot configurará HTTPS automáticamente.
+
+10. ACCEDER:
+    http://[IP_DEL_SERVIDOR]
+    o
+    https://tudominio.com (si configuraste dominio)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4️⃣ OPCIÓN C: DESPLIEGUE CON DOCKER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para despliegue portátil y escalable.
+
+📝 PASO 1: CREAR DOCKERFILE
+
+Crear archivo: Dockerfile
+
+   FROM python:3.11-slim
+
+   WORKDIR /app
+
+   # Instalar dependencias
+   RUN pip install --no-cache-dir flask requests
+
+   # Copiar archivos
+   COPY freshdesk_server.py .
+   COPY visor_freshdesk_final.html .
+
+   # Exponer puerto
+   EXPOSE 8080
+
+   # Variables de entorno (sobreescribir al ejecutar)
+   ENV FRESHDESK_API_KEY=""
+   ENV FRESHDESK_DOMAIN="consultame.freshdesk.com"
+   ENV COMPANY_ID="63000424434"
+
+   # Iniciar servidor
+   CMD ["python3", "freshdesk_server.py"]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 2: CREAR DOCKER COMPOSE (OPCIONAL)
+
+Crear archivo: docker-compose.yml
+
+   version: '3.8'
+
+   services:
+     freshdesk-viewer:
+       build: .
+       ports:
+         - "8080:8080"
+       environment:
+         - FRESHDESK_API_KEY=${FRESHDESK_API_KEY}
+         - FRESHDESK_DOMAIN=consultame.freshdesk.com
+         - COMPANY_ID=63000424434
+       restart: unless-stopped
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 3: CONSTRUIR Y EJECUTAR
+
+   # Construir imagen
+   docker build -t freshdesk-viewer .
+
+   # Ejecutar contenedor
+   docker run -d -p 8080:8080 \
+     -e FRESHDESK_API_KEY="tu_api_key" \
+     --name freshdesk-viewer \
+     freshdesk-viewer
+
+   # O con docker-compose
+   docker-compose up -d
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PASO 4: ACCEDER
+
+   http://localhost:8080
+   o
+   http://[IP_SERVIDOR]:8080
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5️⃣ CONFIGURACIÓN DE SEGURIDAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔒 RECOMENDACIONES DE SEGURIDAD:
+
+1. NUNCA EXPONER API KEY EN EL CÓDIGO:
+   ✅ Usar variables de entorno
+   ❌ No hardcodear en el archivo .py
+
+2. CONFIGURAR AUTENTICACIÓN (OPCIONAL):
+   Agregar Flask-Login para requerir usuario/contraseña
+
+3. USAR HTTPS SI EXPONES A INTERNET:
+   Obligatorio si accedes desde fuera de la red local
+
+4. LIMITAR ACCESO POR IP (OPCIONAL):
+   En freshdesk_server.py, agregar:
+
+   ALLOWED_IPS = ['192.168.1.0/24']  # Red local
+
+   @app.before_request
+   def limit_remote_addr():
+       if request.remote_addr not in ALLOWED_IPS:
+           abort(403)
+
+5. CAMBIAR PUERTO SI ES NECESARIO:
+   Puerto 8080 → cualquier otro puerto disponible
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6️⃣ ACCESO DESDE MÚLTIPLES DISPOSITIVOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ DISPOSITIVOS SOPORTADOS:
+
+📱 Móviles (iOS/Android):
+   • Abre Safari/Chrome
+   • Ingresa: http://[IP]:8080
+   • Funciona responsive
+
+💻 Computadoras (Windows/Mac/Linux):
+   • Cualquier navegador moderno
+   • Chrome, Firefox, Safari, Edge
+
+📱 Tablets (iPad/Android):
+   • Navegador integrado
+   • Interfaz adaptada al tamaño
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 CREAR ACCESO DIRECTO EN DISPOSITIVOS MÓVILES:
+
+iOS (Safari):
+1. Abrir http://[IP]:8080
+2. Tocar el botón "Compartir"
+3. Seleccionar "Agregar a pantalla de inicio"
+4. Nombrar: "Freshdesk Viewer"
+5. ¡Ya tienes un icono como una app!
+
+Android (Chrome):
+1. Abrir http://[IP]:8080
+2. Menú (3 puntos) → "Agregar a pantalla de inicio"
+3. Nombrar y confirmar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7️⃣ SOLUCIÓN DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ ERROR: "No se puede conectar"
+
+Solución:
+1. Verificar que el servidor esté corriendo:
+   ps aux | grep freshdesk_server.py
+
+2. Verificar firewall:
+   • Mac: Preferencias → Seguridad → Firewall
+   • Windows: Panel de Control → Firewall
+
+3. Verificar IP correcta:
+   ifconfig (Mac/Linux) o ipconfig (Windows)
+
+4. Probar en el mismo dispositivo primero:
+   http://localhost:8080
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ ERROR: "Address already in use"
+
+Solución:
+   # Ver qué proceso usa el puerto 8080
+   lsof -ti:8080
+
+   # Matar el proceso
+   kill -9 $(lsof -ti:8080)
+
+   # Reiniciar servidor
+   python3 freshdesk_server.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ ERROR: Gráficos no se cargan
+
+Solución:
+1. Verificar que Chart.js esté cargando (conexión a internet)
+2. Revisar consola del navegador (F12)
+3. Refrescar cache: Cmd+Shift+R (Mac) o Ctrl+Shift+R (Windows)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ ERROR: "Muy lento al cargar"
+
+Solución:
+1. Verificar cache del servidor está funcionando
+2. Reducir cantidad de tickets si son muchos miles
+3. Considerar agregar paginación
+4. Usar servidor más potente si es VPS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 SOPORTE Y DOCUMENTACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 Documentación del proyecto:
+   ~/Desktop/VERSION_*.txt
+
+🔗 Repositorio Git:
+   ~/freshdesk-viewer-backup/
+
+📊 Versión actual: 5.7 (Mapa de Calor)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 RECOMENDACIÓN FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para AFJ Global, recomiendo:
+
+1️⃣ EMPEZAR con OPCIÓN A (Red Local):
+   • Más simple y rápida de implementar
+   • No requiere costos adicionales
+   • Segura (solo dentro de la oficina)
+   • Suficiente para equipo interno
+
+2️⃣ DESPUÉS, si necesitan acceso remoto:
+   • Migrar a OPCIÓN B (VPS)
+   • Configurar dominio: freshdesk.afjglobal.com
+   • Activar HTTPS con certificado SSL
+   • Costo: ~$10/mes
+
+3️⃣ O usar Docker si quieren portabilidad:
+   • Fácil de mover entre servidores
+   • Escalable
+   • Mejor para desarrollo/producción
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Antes de publicar, verificar:
+
+☐ Git commit realizado (v5.7)
+☐ API Key configurada correctamente
+☐ Firewall configurado para permitir puerto 8080
+☐ Host cambiado a 0.0.0.0 en freshdesk_server.py
+☐ IP local identificada
+☐ Servidor inicia sin errores
+☐ Acceso local funciona (http://localhost:8080)
+☐ Acceso desde otro dispositivo funciona
+☐ Todos los gráficos cargan correctamente
+☐ Heatmap se visualiza correctamente
+☐ Documentación guardada
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+¡Listo para publicar! 🚀
+
+Fecha: 19 de Enero 2026
+Cliente: AFJ Global
+Versión: 5.7

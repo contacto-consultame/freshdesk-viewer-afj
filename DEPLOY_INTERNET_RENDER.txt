@@ -1,0 +1,492 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🌐 GUÍA: PUBLICAR EN INTERNET CON RENDER.COM (GRATIS)      ║
+╚══════════════════════════════════════════════════════════════╝
+
+🎯 OBJETIVO: Hacer que tu visor de Freshdesk esté disponible en
+             Internet para que CUALQUIER PERSONA desde CUALQUIER
+             LUGAR pueda acceder.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 ARCHIVOS PREPARADOS PARA DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ requirements.txt
+   → Especifica dependencias Python (Flask, requests)
+
+✅ render.yaml
+   → Configuración de deployment para Render.com
+
+✅ freshdesk_server.py (MODIFICADO)
+   → Ahora usa variables de entorno para API_KEY
+   → Puerto dinámico compatible con Render.com
+   → Debug mode desactivado para producción
+
+✅ visor_freshdesk_final.html
+   → Tu interfaz web con 5 tabs y heatmap
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 OPCIÓN 1: DEPLOYMENT CON RENDER.COM (RECOMENDADO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 POR QUÉ RENDER.COM:
+   ✅ 100% GRATIS (plan Free tier)
+   ✅ No requiere tarjeta de crédito
+   ✅ Deployment automático desde Git
+   ✅ HTTPS incluido (seguro)
+   ✅ URL pública: https://tu-app.onrender.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 PASO 1: CREAR CUENTA EN RENDER.COM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Ir a: https://render.com
+2. Hacer clic en "Get Started" o "Sign Up"
+3. Opciones de registro:
+   • Con GitHub (RECOMENDADO - más fácil para deployment)
+   • Con GitLab
+   • Con Google
+   • Con Email
+
+4. Completar registro (gratis, sin tarjeta)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 PASO 2: SUBIR TU CÓDIGO A GITHUB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN A: Ya tienes Git local (~/freshdesk-viewer-backup/)
+---------------------------------------------------------
+
+1. Crear repositorio en GitHub:
+   • Ir a: https://github.com/new
+   • Nombre: freshdesk-viewer-afj
+   • Descripción: Visor de tickets Freshdesk para AFJ Global
+   • Privado o Público: PRIVADO (recomendado por seguridad)
+   • NO inicializar con README
+   • Crear repositorio
+
+2. Conectar tu repo local con GitHub:
+
+   cd ~/freshdesk-viewer-backup
+   git remote add origin https://github.com/TU_USUARIO/freshdesk-viewer-afj.git
+   git branch -M main
+   git push -u origin main
+
+3. Verificar que se subió:
+   • Refrescar tu página de GitHub
+   • Deberías ver todos los archivos
+
+OPCIÓN B: Subir archivos manualmente
+-------------------------------------
+
+1. Crear repositorio en GitHub (igual que arriba)
+
+2. En la página del repositorio:
+   • Click en "uploading an existing file"
+   • Arrastrar estos archivos:
+     - freshdesk_server.py
+     - visor_freshdesk_final.html
+     - requirements.txt
+     - render.yaml
+   • Commit changes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PASO 3: CREAR WEB SERVICE EN RENDER.COM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. En Render.com Dashboard, click "New +"
+
+2. Seleccionar "Web Service"
+
+3. Conectar GitHub:
+   • Si es primera vez, autorizar Render a acceder a GitHub
+   • Seleccionar tu repositorio: freshdesk-viewer-afj
+
+4. Configurar el servicio:
+
+   ┌─────────────────────────────────────────────────────┐
+   │ Name: freshdesk-viewer-afj                          │
+   │ Region: Oregon (US West) o el más cercano          │
+   │ Branch: main                                        │
+   │ Root Directory: (dejar vacío)                       │
+   │ Runtime: Python 3                                   │
+   │ Build Command: pip install -r requirements.txt     │
+   │ Start Command: python freshdesk_server.py          │
+   │ Instance Type: Free                                 │
+   └─────────────────────────────────────────────────────┘
+
+5. IMPORTANTE - Environment Variables:
+
+   Hacer clic en "Advanced" o ir a "Environment"
+
+   Agregar estas variables:
+
+   ┌──────────────────────┬─────────────────────────────┐
+   │ Key                  │ Value                       │
+   ├──────────────────────┼─────────────────────────────┤
+   │ FRESHDESK_API_KEY    │ 6egUChwBAUA2633n18DC        │
+   │ FRESHDESK_DOMAIN     │ consultame                  │
+   └──────────────────────┴─────────────────────────────┘
+
+   ⚠️ CRÍTICO: Copiar el API key exactamente como está arriba
+
+6. Hacer clic en "Create Web Service"
+
+7. Render.com comenzará a:
+   • Clonar tu repositorio
+   • Instalar dependencias (Flask, requests)
+   • Iniciar tu servidor
+   • Asignar URL pública
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏳ PASO 4: ESPERAR DEPLOYMENT (2-5 minutos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verás logs en tiempo real:
+
+==> Building...
+    Collecting Flask==3.0.0
+    Collecting requests==2.31.0
+    Successfully installed Flask-3.0.0 requests-2.31.0
+==> Build successful!
+==> Deploying...
+    Starting service...
+==> Service is live!
+
+🎉 Cuando veas "Service is live", tu app está en Internet!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 PASO 5: OBTENER TU URL PÚBLICA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Tu URL será algo como:
+
+   https://freshdesk-viewer-afj.onrender.com
+
+Copiar esta URL y compartirla con quien quieras.
+
+✅ ACCESIBLE DESDE:
+   • Cualquier país del mundo
+   • Cualquier dispositivo (PC, móvil, tablet)
+   • Cualquier red (WiFi, datos móviles, oficina, casa)
+   • No requiere VPN ni configuración especial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ VERIFICACIÓN POST-DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Abrir tu URL: https://freshdesk-viewer-afj.onrender.com
+
+2. Verificar que carga:
+   ☐ Página principal con 5 tabs
+   ☐ Tab "📋 Todos los Tickets" muestra datos
+   ☐ Tab "🔄 Análisis de Recurrencia" funciona
+   ☐ Tab "⚠️ Análisis por Criticidad" funciona
+   ☐ Tab "📊 Métricas de Rendimiento (KPIs)" funciona
+   ☐ Tab "📈 Análisis de Tendencias y Carga" funciona
+   ☐ Heatmap se renderiza correctamente
+   ☐ Selector de año funciona
+
+3. Probar desde diferentes dispositivos:
+   ☐ Tu computadora
+   ☐ Otro dispositivo en tu oficina
+   ☐ Tu móvil con WiFi
+   ☐ Tu móvil con datos móviles (¡prueba real de internet!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 COMPARTIR CON TU EQUIPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mensaje para enviar:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 VISOR DE FRESHDESK - AFJ GLOBAL
+
+El visor de tickets de Freshdesk ya está disponible en Internet.
+
+🌐 URL de acceso:
+   https://freshdesk-viewer-afj.onrender.com
+   (reemplazar con tu URL real)
+
+📱 Accesible desde:
+   • Cualquier computadora con Internet
+   • Móviles (iPhone/Android)
+   • Tablets
+   • Dentro o fuera de la oficina
+
+✨ Funcionalidades:
+   • Vista de todos los tickets
+   • Análisis de recurrencia
+   • Análisis por criticidad
+   • KPIs de rendimiento
+   • Tendencias temporales
+   • Mapa de calor de actividad
+
+💡 Agregar a favoritos para acceso rápido.
+
+¿Problemas? Contacta a: [Tu nombre/email]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ GESTIÓN DEL SERVICIO EN RENDER.COM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dashboard de tu servicio:
+   https://dashboard.render.com/
+
+Desde ahí puedes:
+
+📊 Ver métricas:
+   • Requests por minuto
+   • Uso de memoria
+   • Logs en tiempo real
+
+🔄 Actualizaciones automáticas:
+   • Cada vez que hagas git push a tu repo
+   • Render detectará cambios y re-deployará automáticamente
+   • Sin downtime
+
+🔧 Configuración:
+   • Cambiar variables de entorno
+   • Ver logs de errores
+   • Reiniciar servicio manualmente
+
+⏸️ Suspender servicio:
+   • Settings → Suspend
+   • El servicio gratis se suspende automáticamente después
+     de 15 minutos de inactividad
+   • Se reactiva automáticamente cuando alguien accede
+   • Primera carga después de suspensión toma ~30 segundos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔒 SEGURIDAD Y MEJORES PRÁCTICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Variables de entorno:
+   • Tu API key está protegida en variables de entorno
+   • NO está en el código visible
+   • Configurada solo en Render.com
+
+✅ HTTPS incluido:
+   • Todas las conexiones son cifradas
+   • Certificado SSL automático
+
+✅ Repositorio privado:
+   • Si usas GitHub privado, tu código no es público
+   • Solo tú y Render tienen acceso
+
+⚠️ IMPORTANTE:
+   • Tu API key de Freshdesk está expuesta al frontend
+   • Cualquiera que acceda puede ver las llamadas API
+   • Si necesitas más seguridad, considera:
+     - Implementar autenticación (login/password)
+     - Crear API proxy que oculte las credenciales
+     - Restringir acceso por IP
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚨 LIMITACIONES DEL PLAN GRATIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Plan Free de Render.com:
+
+✅ Lo que SÍ incluye (GRATIS):
+   • 750 horas/mes de uptime (suficiente para uso normal)
+   • HTTPS automático
+   • Deploys ilimitados
+   • 512 MB RAM
+   • Repositorios públicos y privados
+
+⚠️ Limitaciones:
+   • Se suspende tras 15 min de inactividad
+   • Primera carga después de suspensión: ~30 seg
+   • Velocidad moderada (no ultra-rápido)
+   • 100 GB de ancho de banda/mes
+
+💰 Si necesitas más:
+   Plan Starter ($7/mes):
+   • Sin suspensión automática
+   • Más RAM y velocidad
+   • Para uso empresarial intensivo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 SOLUCIÓN DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Build failed"
+
+Solución:
+1. Verificar que requirements.txt está en el repositorio
+2. Verificar que no hay errores de sintaxis en Python
+3. Ver logs en Render.com para error específico
+4. Comando de build debe ser: pip install -r requirements.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Deploy succeeded pero página no carga"
+
+Solución:
+1. Verificar que Start Command es: python freshdesk_server.py
+2. Ver logs en Render.com → Logs tab
+3. Buscar errores como:
+   - "ModuleNotFoundError" → falta dependencia en requirements.txt
+   - "Connection refused" → problema de puerto
+   - API errors → verificar variables de entorno
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "No se cargan los tickets"
+
+Solución:
+1. Abrir Developer Tools en navegador (F12)
+2. Ver Console para errores JavaScript
+3. Ver Network tab para ver llamadas API
+4. Verificar que:
+   - FRESHDESK_API_KEY está configurada correctamente
+   - FRESHDESK_DOMAIN es "consultame" (sin .freshdesk.com)
+5. Ver logs en Render.com para errores de API
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Muy lento / Timeout"
+
+Solución:
+1. Primera carga después de inactividad toma ~30 seg (normal)
+2. Cargas subsiguientes son más rápidas
+3. Si sigue lento:
+   - Verificar tu conexión a Internet
+   - La API de Freshdesk puede estar lenta
+   - Plan gratis tiene recursos limitados
+4. Considerar plan de pago si es crítico
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Service unavailable después de un tiempo"
+
+Causa: Servicio suspendido por inactividad (15 min)
+
+Solución:
+   • Solo esperar 30 segundos, se reactiva solo
+   • O contratar plan de pago ($7/mes) para mantenerlo activo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 ACTUALIZACIONES FUTURAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cuando quieras hacer cambios a tu aplicación:
+
+1. Modificar archivos localmente
+
+2. Commit a Git:
+   cd ~/freshdesk-viewer-backup
+   git add .
+   git commit -m "Descripción de cambios"
+   git push
+
+3. Render.com detectará el push automáticamente
+
+4. Re-build y re-deploy automático (2-3 minutos)
+
+5. Tu URL sigue siendo la misma
+
+6. ¡Cambios en vivo!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 ALTERNATIVAS SI RENDER.COM NO FUNCIONA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Si por alguna razón Render.com no funciona, hay alternativas:
+
+1. Railway.app
+   • Similar a Render
+   • $5 de crédito gratis
+   • https://railway.app
+
+2. Fly.io
+   • Plan gratis generoso
+   • Más técnico
+   • https://fly.io
+
+3. PythonAnywhere
+   • Especializado en Python
+   • Plan gratis con limitaciones
+   • https://www.pythonanywhere.com
+
+4. Heroku
+   • Ya no tiene plan gratis
+   • $7/mes mínimo
+   • https://heroku.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 RECURSOS ADICIONALES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Render.com Docs:
+   https://render.com/docs
+
+GitHub Docs:
+   https://docs.github.com
+
+Tu documentación local:
+   ~/Desktop/GUIA_PUBLICACION_WEB.txt
+   ~/Desktop/VERSION_5.7_MAPA_CALOR.txt
+   ~/Desktop/ACCESO_PUBLICO_INSTRUCCIONES.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST FINAL DE DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Antes de empezar:
+☐ Archivos preparados (requirements.txt, render.yaml)
+☐ Git repo actualizado
+☐ Credenciales de Freshdesk API disponibles
+
+Durante deployment:
+☐ Cuenta en Render.com creada
+☐ Repositorio en GitHub creado y subido
+☐ Web Service creado en Render.com
+☐ Variables de entorno configuradas
+☐ Build exitoso
+☐ Deploy exitoso
+
+Después de deployment:
+☐ URL pública funciona
+☐ Todas las tabs cargan
+☐ Tickets se muestran correctamente
+☐ Heatmap se renderiza
+☐ Probado desde móvil
+☐ Probado con datos móviles (fuera de oficina)
+☐ URL compartida con equipo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 ¡LISTO!
+
+Tu visor de Freshdesk ahora está en Internet, accesible desde
+cualquier lugar del mundo.
+
+URL final: https://[tu-servicio].onrender.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fecha de creación: 19 de Enero 2026
+Plataforma: Render.com (Free Tier)
+Versión: 5.7 (Mapa de Calor)
+Cliente: AFJ Global
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

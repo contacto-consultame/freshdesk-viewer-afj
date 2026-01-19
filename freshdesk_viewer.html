@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Tickets Freshdesk - AFJ Global</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card.active {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .stat-card small {
+            color: #999;
+            font-size: 0.75em;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .search-section {
+            padding: 30px;
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .filter-btn.bajo {
+            border-color: #28a745;
+        }
+
+        .filter-btn.bajo.active {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .filter-btn.medio {
+            border-color: #ffc107;
+        }
+
+        .filter-btn.medio.active {
+            background: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .filter-btn.alto {
+            border-color: #dc3545;
+        }
+
+        .filter-btn.alto.active {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .filter-btn.urgente {
+            border-color: #dc3545;
+        }
+
+        .filter-btn.urgente.active {
+            background: #dc3545;
+            border-color: #dc3545;
+            animation: pulse 2s infinite;
+        }
+
+        .btn-clear {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-clear:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .results-info {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .results-count {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .selected-count {
+            color: #28a745;
+        }
+
+        .tickets-list {
+            padding: 0 30px 30px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .tickets-list::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .tickets-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .tickets-list::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .tickets-list::-webkit-scrollbar-thumb:hover {
+            background: #5568d3;
+        }
+
+        .ticket-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .ticket-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .ticket-card.selected {
+            border-color: #667eea;
+            background: #f8f9ff;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .ticket-id {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.9em;
+        }
+
+        .ticket-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .ticket-subject {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ticket-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .ticket-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .ticket-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .priority-bajo {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .priority-medio {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .priority-alto {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .priority-urgente {
+            background: #f5c6cb;
+            color: #721c24;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .ticket-date {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .ticket-tags {
+            color: #667eea;
+            font-size: 0.85em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .no-results svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎫 Visor de Tickets Freshdesk</h1>
+            <p>AFJ Global | 2025 - 2026</p>
+        </div>
+
+        <div class="stats" id="statsSection">
+            <div class="stat-card" onclick="filterByPriority('all')" id="stat-all">
+                <h3 id="totalTickets">0</h3>
+                <p>Total Tickets</p>
+                <small id="visibleAll">0 visibles</small>
+            </div>
+            <div class="stat-card" onclick="filterByPriority('Bajo')" id="stat-bajo">
+                <h3 id="ticketsBajo">0</h3>
+                <p>🟢 Prioridad Baja</p>
+                <small id="visibleBajo">0 visibles</small>
+            </div>
+            <div class="stat-card" onclick="filterByPriority('Medio')" id="stat-medio">
+                <h3 id="ticketsMedio">0</h3>
+                <p>🟡 Prioridad Media</p>
+                <small id="visibleMedio">0 visibles</small>
+            </div>
+            <div class="stat-card" onclick="filterByPriority('Alto')" id="stat-alto">
+                <h3 id="ticketsAlto">0</h3>
+                <p>🔴 Prioridad Alta</p>
+                <small id="visibleAlto">0 visibles</small>
+            </div>
+            <div class="stat-card" onclick="filterByPriority('Urgente')" id="stat-urgente">
+                <h3 id="ticketsUrgente">0</h3>
+                <p>⚠️ Prioridad Urgente</p>
+                <small id="visibleUrgente">0 visibles</small>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="🔍 Buscar por asunto, descripción o ID del ticket..."
+                >
+                <div class="filter-buttons">
+                    <button class="filter-btn active" id="btn-all" onclick="filterByPriority('all')">
+                        Todos
+                    </button>
+                    <button class="filter-btn bajo" id="btn-bajo" onclick="filterByPriority('Bajo')">
+                        Baja
+                    </button>
+                    <button class="filter-btn medio" id="btn-medio" onclick="filterByPriority('Medio')">
+                        Media
+                    </button>
+                    <button class="filter-btn alto" id="btn-alto" onclick="filterByPriority('Alto')">
+                        Alta
+                    </button>
+                    <button class="filter-btn urgente" id="btn-urgente" onclick="filterByPriority('Urgente')">
+                        Urgente
+                    </button>
+                    <button class="btn-clear" onclick="resetFilters()">
+                        🔄 Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-info" id="resultsInfo">
+                <span class="results-count" id="resultsCount">Mostrando 0 tickets</span>
+                <span class="selected-count" id="selectedCount">0 seleccionados</span>
+            </div>
+        </div>
+
+        <div class="tickets-list" id="ticketsList">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Cargando tickets...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allTickets = [];
+        let filteredTickets = [];
+        let selectedTickets = [];
+        let currentFilter = 'all';
+
+        // Cargar datos al iniciar
+        window.onload = function() {
+            loadTickets();
+        };
+
+        // Cargar tickets desde JSON
+        async function loadTickets() {
+            try {
+                const response = await fetch('tickets_data.json');
+                const data = await response.json();
+                allTickets = data.tickets;
+                filteredTickets = allTickets;
+
+                updateStats();
+                displayTickets(allTickets);
+
+                // Habilitar búsqueda en tiempo real
+                document.getElementById('searchInput').addEventListener('input', applyFilters);
+            } catch (error) {
+                console.error('Error cargando tickets:', error);
+                document.getElementById('ticketsList').innerHTML = `
+                    <div class="no-results">
+                        <p style="color: red; font-size: 1.2em;">❌ Error al cargar los datos</p>
+                        <p>Asegúrate de que el archivo <strong>tickets_data.json</strong> está en la misma carpeta que este archivo HTML.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            document.getElementById('totalTickets').textContent = allTickets.length;
+
+            const priorityCounts = {
+                'Bajo': 0,
+                'Medio': 0,
+                'Alto': 0,
+                'Urgente': 0
+            };
+
+            allTickets.forEach(ticket => {
+                const priority = ticket.priority || 'Bajo';
+                if (priorityCounts.hasOwnProperty(priority)) {
+                    priorityCounts[priority]++;
+                }
+            });
+
+            document.getElementById('ticketsBajo').textContent = priorityCounts['Bajo'];
+            document.getElementById('ticketsMedio').textContent = priorityCounts['Medio'];
+            document.getElementById('ticketsAlto').textContent = priorityCounts['Alto'];
+            document.getElementById('ticketsUrgente').textContent = priorityCounts['Urgente'];
+
+            updateVisibleCounts();
+        }
+
+        // Actualizar contadores de visibles
+        function updateVisibleCounts() {
+            const visibleCounts = {
+                'all': filteredTickets.length,
+                'Bajo': 0,
+                'Medio': 0,
+                'Alto': 0,
+                'Urgente': 0
+            };
+
+            filteredTickets.forEach(ticket => {
+                const priority = ticket.priority || 'Bajo';
+                if (visibleCounts.hasOwnProperty(priority)) {
+                    visibleCounts[priority]++;
+                }
+            });
+
+            document.getElementById('visibleAll').textContent = `${visibleCounts['all']} visibles`;
+            document.getElementById('visibleBajo').textContent = `${visibleCounts['Bajo']} visibles`;
+            document.getElementById('visibleMedio').textContent = `${visibleCounts['Medio']} visibles`;
+            document.getElementById('visibleAlto').textContent = `${visibleCounts['Alto']} visibles`;
+            document.getElementById('visibleUrgente').textContent = `${visibleCounts['Urgente']} visibles`;
+        }
+
+        // Filtrar por prioridad
+        function filterByPriority(priority) {
+            currentFilter = priority;
+
+            // Actualizar botones activos
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${priority === 'all' ? 'all' : priority.toLowerCase()}`).classList.add('active');
+
+            // Actualizar tarjetas de estadísticas
+            document.querySelectorAll('.stat-card').forEach(card => card.classList.remove('active'));
+            document.getElementById(`stat-${priority === 'all' ? 'all' : priority.toLowerCase()}`).classList.add('active');
+
+            applyFilters();
+        }
+
+        // Aplicar todos los filtros
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredTickets = allTickets.filter(ticket => {
+                // Filtro de búsqueda
+                const matchesSearch = !searchTerm ||
+                    ticket.subject.toLowerCase().includes(searchTerm) ||
+                    (ticket.description && ticket.description.toLowerCase().includes(searchTerm)) ||
+                    ticket.id.toString().includes(searchTerm);
+
+                // Filtro de prioridad
+                const matchesPriority = currentFilter === 'all' || ticket.priority === currentFilter;
+
+                return matchesSearch && matchesPriority;
+            });
+
+            displayTickets(filteredTickets);
+            updateVisibleCounts();
+        }
+
+        // Mostrar tickets
+        function displayTickets(tickets) {
+            const ticketsList = document.getElementById('ticketsList');
+
+            if (tickets.length === 0) {
+                ticketsList.innerHTML = `
+                    <div class="no-results">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h3>No se encontraron tickets</h3>
+                        <p>Intenta con otros términos de búsqueda o cambia el filtro de prioridad</p>
+                    </div>
+                `;
+                updateResultsInfo(0);
+                return;
+            }
+
+            let html = '';
+            tickets.forEach(ticket => {
+                const isSelected = selectedTickets.includes(ticket.id);
+                const priorityClass = `priority-${ticket.priority.toLowerCase()}`;
+                const date = new Date(ticket.created_at).toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                html += `
+                    <div class="ticket-card ${isSelected ? 'selected' : ''}" onclick="toggleTicket(${ticket.id}, event)">
+                        <div class="ticket-header">
+                            <span class="ticket-id">#${ticket.id}</span>
+                            <input type="checkbox" class="ticket-checkbox" ${isSelected ? 'checked' : ''}
+                                   onchange="event.stopPropagation(); toggleTicket(${ticket.id}, event)">
+                        </div>
+                        <div class="ticket-subject">${ticket.subject}</div>
+                        <div class="ticket-description">${ticket.description || 'Sin descripción disponible'}</div>
+                        <div class="ticket-meta">
+                            <span class="ticket-badge ${priorityClass}">
+                                ${ticket.priority === 'Bajo' ? '🟢' : ticket.priority === 'Medio' ? '🟡' : ticket.priority === 'Alto' ? '🔴' : '⚠️'}
+                                ${ticket.priority}
+                            </span>
+                            <span class="ticket-date">📅 ${date}</span>
+                            ${ticket.tags ? `<span class="ticket-tags">🏷️ ${ticket.tags}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            ticketsList.innerHTML = html;
+            updateResultsInfo(tickets.length);
+        }
+
+        // Seleccionar/deseleccionar ticket
+        function toggleTicket(ticketId, event) {
+            // Si el clic fue en el checkbox, no hacer nada (ya se maneja en el onChange)
+            if (event && event.target.type === 'checkbox') {
+                return;
+            }
+
+            const index = selectedTickets.indexOf(ticketId);
+            if (index > -1) {
+                selectedTickets.splice(index, 1);
+            } else {
+                selectedTickets.push(ticketId);
+            }
+
+            displayTickets(filteredTickets);
+        }
+
+        // Actualizar información de resultados
+        function updateResultsInfo(count) {
+            const resultsCount = document.getElementById('resultsCount');
+            const selectedCount = document.getElementById('selectedCount');
+
+            resultsCount.textContent = `📊 Mostrando ${count} de ${allTickets.length} tickets`;
+            selectedCount.textContent = `✅ ${selectedTickets.length} seleccionados`;
+        }
+
+        // Resetear filtros
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            currentFilter = 'all';
+            selectedTickets = [];
+            filteredTickets = allTickets;
+
+            // Resetear botones
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-all').classList.add('active');
+
+            // Resetear tarjetas de estadísticas
+            document.querySelectorAll('.stat-card').forEach(card => card.classList.remove('active'));
+            document.getElementById('stat-all').classList.add('active');
+
+            displayTickets(allTickets);
+            updateVisibleCounts();
+        }
+    </script>
+</body>
+</html>

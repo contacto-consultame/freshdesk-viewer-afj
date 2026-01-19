@@ -66,21 +66,20 @@ def classify_priority(subject, description=""):
 
 def get_tickets_from_api():
     """Obtiene tickets de Freshdesk API con análisis completo - SOLO AFJ Global"""
-    # Usar el endpoint de búsqueda para filtrar por compañía
-    url = f"https://{FRESHDESK_DOMAIN}.freshdesk.com/api/v2/search/tickets"
+    url = f"https://{FRESHDESK_DOMAIN}.freshdesk.com/api/v2/tickets"
     all_tickets = []
 
     try:
-        # Buscar tickets de la compañía AFJ Global
-        # Usar paginación para obtener todos los tickets
-        for page in range(1, 21):  # Aumentar a 20 páginas para obtener más tickets
-            params = {
-                'query': f'"company_id:{COMPANY_ID}"',
-                'page': page,
-                'per_page': 30  # API de search limita a 30 por página
-            }
+        print(f"Obteniendo tickets de AFJ Global (Company ID: {COMPANY_ID})...")
 
-            print(f"Obteniendo página {page} de tickets de AFJ Global (Company ID: {COMPANY_ID})...")
+        # Obtener tickets con filtro por compañía directamente en el endpoint
+        for page in range(1, 25):  # Hasta 2400 tickets (25 páginas x 100 por página)
+            params = {
+                'company_id': COMPANY_ID,  # Filtrar por AFJ Global
+                'page': page,
+                'per_page': 100,
+                'include': 'requester,description'
+            }
 
             response = requests.get(
                 url,
@@ -90,18 +89,17 @@ def get_tickets_from_api():
             )
 
             if response.status_code == 200:
-                data = response.json()
-                tickets = data.get('results', [])
+                tickets = response.json()
                 if not tickets:
-                    print(f"No más tickets en página {page}")
+                    print(f"No más tickets después de página {page-1}")
                     break
-                print(f"✓ Obtenidos {len(tickets)} tickets de la página {page}")
+                print(f"✓ Página {page}: {len(tickets)} tickets")
                 all_tickets.extend(tickets)
             else:
-                print(f"Error {response.status_code}: {response.text}")
+                print(f"Error {response.status_code}: {response.text[:200]}")
                 break
 
-        print(f"\n✅ Total de tickets de AFJ Global obtenidos: {len(all_tickets)}\n")
+        print(f"\n✅ Total tickets de AFJ Global: {len(all_tickets)}\n")
 
         # Procesar y enriquecer tickets
         processed = []

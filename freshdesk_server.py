@@ -12,10 +12,15 @@ CORS(app)
 FRESHDESK_DOMAIN = os.environ.get("FRESHDESK_DOMAIN", "consultame")
 FRESHDESK_API_KEY = os.environ.get("FRESHDESK_API_KEY", "6egUChwBAUA2633n18DC")
 
+# --- RUTA PRINCIPAL (ESTO ES LO QUE FALTABA) ---
+@app.route('/')
+def index():
+    # Esta línea le dice al servidor que muestre tu visor avanzado
+    return send_file('visor_freshdesk_avanzado.html')
+
 def get_tickets_from_api():
     url = f"https://{FRESHDESK_DOMAIN}.freshdesk.com/api/v2/tickets?include=requester"
     all_tickets = []
-    # Pedimos las primeras 5 páginas para tener data suficiente
     for page in range(1, 6):
         response = requests.get(url + f"&page={page}&per_page=100", auth=(FRESHDESK_API_KEY, 'X'))
         if response.status_code == 200:
@@ -25,19 +30,17 @@ def get_tickets_from_api():
     
     processed = []
     for t in all_tickets:
-        # Clasificación por keywords
         subj = (t.get('subject') or "").lower()
-        priority = 1 # Bajo por defecto
+        priority = 1 
         if any(k in subj for k in ['aws', 'alarm', 'caido', 'error', 'urgente']): priority = 3
         elif any(k in subj for k in ['outlook', 'correo', 'licencia', 'acceso']): priority = 2
         
-        # Mapeo de estados
         status_map = {2: "Abierto", 3: "Pendiente", 4: "Resuelto", 5: "Cerrado"}
         
         processed.append({
             "id": t.get('id'),
             "subject": t.get('subject', 'Sin asunto'),
-            "priority": priority, # Ahora es un número: 1, 2, 3
+            "priority": priority, 
             "status": t.get('status'),
             "status_name": status_map.get(t.get('status'), "Otro"),
             "created_at": t.get('created_at'),
@@ -89,7 +92,6 @@ def get_recurrence():
 
 @app.route('/api/trends')
 def get_trends():
-    # Simplificado para asegurar que siempre devuelva algo
     return jsonify({"trends": {"avg_daily_created": 62.5, "avg_daily_resolved": 61.2}})
 
 if __name__ == '__main__':
